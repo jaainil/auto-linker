@@ -105,7 +105,7 @@
       "refersTo": "button-primary",
       "description": "The single blue action on a surface; used for Try the engine and Insert links.",
       "html": "<button class=\"ds-btn-primary\">Try the engine <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 19 19 5M9 5h10v10\"/></svg></button>",
-      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 9px; height: 42px; padding: 0 18px; border: 1px solid transparent; border-radius: 9999px; background: var(--blue, #2563eb); color: #fff; font: 400 14.5px/1 'Rethink Sans', system-ui, sans-serif; letter-spacing: -0.005em; cursor: pointer; transition: background-color 160ms cubic-bezier(0.22, 0.61, 0.36, 1), color 160ms cubic-bezier(0.22, 0.61, 0.36, 1); } .ds-btn-primary:hover { background: var(--blue-deep, #1d4ed8); } .ds-btn-primary:focus-visible { outline: 2px solid var(--blue, #2563eb); outline-offset: 3px; } .ds-btn-primary svg { transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover svg { transform: translate(1px, -1px); }"
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 9px; height: 42px; padding: 0 18px; border: 1px solid transparent; border-radius: 9999px; background: var(--blue, #2563eb); color: #fff; font: 400 14.5px/1 'Rethink Sans', system-ui, sans-serif; letter-spacing: -0.005em; cursor: pointer; transition: background-color 160ms cubic-bezier(0.22, 0.61, 0.36, 1), color 160ms cubic-bezier(0.22, 0.61, 0.36, 1); } .ds-btn-primary:hover { background: var(--blue-deep, #0520d4); } .ds-btn-primary:focus-visible { outline: 2px solid var(--blue, #2563eb); outline-offset: 3px; } .ds-btn-primary svg { transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover svg { transform: translate(1px, -1px); }"
     },
     {
       "name": "Secondary Button",
@@ -113,7 +113,7 @@
       "refersTo": "button-secondary",
       "description": "The quiet alternative beside a primary action; white ground with a hairline border.",
       "html": "<button class=\"ds-btn-secondary\">Read the blueprint</button>",
-      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; height: 42px; padding: 0 18px; border: 1px solid var(--border-strong, #d2d2d2); border-radius: 9999px; background: #fff; color: var(--blue, #2563eb); font: 400 14.5px/1 'Rethink Sans', system-ui, sans-serif; cursor: pointer; transition: background-color 160ms cubic-bezier(0.22, 0.61, 0.36, 1), color 160ms cubic-bezier(0.22, 0.61, 0.36, 1); } .ds-btn-secondary:hover { background: var(--muted, #f7f7f7); color: var(--blue-deep, #1d4ed8); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--blue, #2563eb); outline-offset: 3px; }"
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; height: 42px; padding: 0 18px; border: 1px solid var(--border-strong, #b1bac4); border-radius: 9999px; background: #fff; color: var(--blue, #2563eb); font: 400 14.5px/1 'Rethink Sans', system-ui, sans-serif; cursor: pointer; transition: background-color 160ms cubic-bezier(0.22, 0.61, 0.36, 1), color 160ms cubic-bezier(0.22, 0.61, 0.36, 1); } .ds-btn-secondary:hover { background: var(--muted, #f7f7f7); color: var(--blue-deep, #0520d4); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--blue, #2563eb); outline-offset: 3px; }"
     },
     {
       "name": "Inverse Button",
@@ -121,7 +121,7 @@
       "refersTo": "button-inverse",
       "description": "White pill used inside the closing blue field.",
       "html": "<button class=\"ds-btn-inverse\">Read the blueprint</button>",
-      "css": ".ds-btn-inverse { display: inline-flex; align-items: center; justify-content: center; height: 42px; padding: 0 18px; border: 1px solid transparent; border-radius: 9999px; background: #fff; color: var(--blue, #2563eb); font: 400 14.5px/1 'Rethink Sans', system-ui, sans-serif; cursor: pointer; transition: background-color 160ms cubic-bezier(0.22, 0.61, 0.36, 1), color 160ms cubic-bezier(0.22, 0.61, 0.36, 1); } .ds-btn-inverse:hover { background: #eaf0ff; color: var(--blue-deep, #1d4ed8); } .ds-btn-inverse:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }"
+      "css": ".ds-btn-inverse { display: inline-flex; align-items: center; justify-content: center; height: 42px; padding: 0 18px; border: 1px solid transparent; border-radius: 9999px; background: #fff; color: var(--blue, #2563eb); font: 400 14.5px/1 'Rethink Sans', system-ui, sans-serif; cursor: pointer; transition: background-color 160ms cubic-bezier(0.22, 0.61, 0.36, 1), color 160ms cubic-bezier(0.22, 0.61, 0.36, 1); } .ds-btn-inverse:hover { background: #eaf0ff; color: var(--blue-deep, #0520d4); } .ds-btn-inverse:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }"
     },
     {
       "name": "Tag",
@@ -129,7 +129,7 @@
       "refersTo": "tag",
       "description": "Small uppercase metadata pill for table labels and states.",
       "html": "<span class=\"ds-tag\">HTML in</span>",
-      "css": ".ds-tag { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border: 1px solid var(--border, #e6e6e6); border-radius: 9999px; background: #fff; color: var(--label, #3f3f3f); font: 500 10px/1 'Rethink Sans', system-ui, sans-serif; text-transform: uppercase; letter-spacing: 0.07em; }"
+      "css": ".ds-tag { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border: 1px solid var(--border, #e6e6e6); border-radius: 9999px; background: #fff; color: var(--label, #4d4d4d); font: 600 10px/1 'Rethink Sans', system-ui, sans-serif; text-transform: uppercase; letter-spacing: 0.07em; }"
     },
     {
       "name": "Accent Tag",
@@ -137,7 +137,7 @@
       "refersTo": "tag-accent",
       "description": "Blue-wash pill for counts and verified states.",
       "html": "<span class=\"ds-tag-accent\">3 links added</span>",
-      "css": ".ds-tag-accent { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border: 1px solid rgb(37 99 235 / 0.22); border-radius: 9999px; background: var(--blue-wash, #f1f5ff); color: var(--blue, #2563eb); font: 500 10px/1 'Rethink Sans', system-ui, sans-serif; text-transform: uppercase; letter-spacing: 0.07em; }"
+      "css": ".ds-tag-accent { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border: 1px solid rgb(37 99 235 / 0.22); border-radius: 9999px; background: var(--blue-wash, #e9effd); color: var(--blue, #2563eb); font: 600 10px/1 'Rethink Sans', system-ui, sans-serif; text-transform: uppercase; letter-spacing: 0.07em; }"
     },
     {
       "name": "Hairline Panel",
@@ -145,7 +145,7 @@
       "refersTo": "panel",
       "description": "The default white evidence panel with a 7px corner and a 1px rule.",
       "html": "<div class=\"ds-panel\"><span class=\"ds-panel__label\">AUDIT</span><h3 class=\"ds-panel__title\">Selection is global, not greedy per phrase.</h3><p class=\"ds-panel__body\">Overlaps, duplicate destinations, paragraph caps, and the relevance floor are resolved across the whole article.</p></div>",
-      "css": ".ds-panel { padding: 24px; border: 1px solid var(--border, #e6e6e6); border-radius: 7px; background: #fff; color: var(--ink, #000); font-family: 'Rethink Sans', system-ui, sans-serif; } .ds-panel__label { display: block; font: 600 11.5px/1.4 'Doto', ui-monospace, monospace; letter-spacing: 0.04em; text-transform: uppercase; color: var(--label, #3f3f3f); } .ds-panel__title { margin: 10px 0 0; font-size: 22px; font-weight: 400; line-height: 1.2; letter-spacing: -0.012em; } .ds-panel__body { margin: 12px 0 0; font-size: 15px; line-height: 25px; color: var(--graphite, #4d4d4d); }"
+      "css": ".ds-panel { padding: 24px; border: 1px solid var(--border, #e6e6e6); border-radius: 7px; background: #fff; color: var(--ink, #000); font-family: 'Rethink Sans', system-ui, sans-serif; } .ds-panel__label { display: block; font: 600 11.5px/1.4 'Doto', ui-monospace, monospace; letter-spacing: 0.04em; text-transform: uppercase; color: var(--label, #4d4d4d); } .ds-panel__title { margin: 10px 0 0; font-size: 22px; font-weight: 400; line-height: 1.2; letter-spacing: -0.012em; } .ds-panel__body { margin: 12px 0 0; font-size: 15px; line-height: 25px; color: var(--graphite, #4d4d4d); }"
     },
     {
       "name": "Code Card",
@@ -153,7 +153,7 @@
       "refersTo": "code-card",
       "description": "Paper Grey code ground with a white file bar and a quiet foot note.",
       "html": "<div class=\"ds-code-card\"><div class=\"ds-code-card__head\"><span class=\"ds-code-card__name\">autoLink.ts</span><button class=\"ds-code-card__copy\" type=\"button\">Copy</button></div><pre class=\"ds-code-card__pre\"><code>const { content, links } = autoLink({ content: article, pages });</code></pre><div class=\"ds-code-card__foot\">Returns updated HTML, the links it inserted, and diagnostics.</div></div>",
-      "css": ".ds-code-card { overflow: hidden; border: 1px solid var(--border, #e6e6e6); border-radius: 7px; background: var(--muted, #f7f7f7); font-family: 'Rethink Sans', system-ui, sans-serif; } .ds-code-card__head { display: flex; align-items: center; gap: 10px; min-height: 42px; padding: 5px 10px 5px 14px; border-bottom: 1px solid var(--border, #e6e6e6); background: #fff; } .ds-code-card__name { font: 600 11px/1.4 'Doto', ui-monospace, monospace; letter-spacing: 0.02em; color: var(--label, #3f3f3f); } .ds-code-card__copy { margin-left: auto; height: 28px; padding: 0 10px; border: 1px solid var(--border, #e6e6e6); border-radius: 9999px; background: #fff; color: var(--graphite, #4d4d4d); font: 400 11px/1 'Rethink Sans', system-ui, sans-serif; cursor: pointer; } .ds-code-card__copy:hover { color: var(--blue, #2563eb); border-color: var(--blue, #2563eb); } .ds-code-card__copy:focus-visible { outline: 2px solid var(--blue, #2563eb); outline-offset: 3px; } .ds-code-card__pre { margin: 0; padding: 20px 18px; overflow-x: auto; color: var(--ink, #000); font: 900 16.5px/1.6 'Doto', ui-monospace, monospace; letter-spacing: 0.01em; } .ds-code-card__pre code { font: inherit; } .ds-code-card__foot { padding: 8px 14px; border-top: 1px solid var(--border, #e6e6e6); background: #fff; color: var(--graphite, #4d4d4d); font-size: 10.5px; letter-spacing: 0.01em; }"
+      "css": ".ds-code-card { overflow: hidden; border: 1px solid var(--border, #e6e6e6); border-radius: 7px; background: var(--muted, #f7f7f7); font-family: 'Rethink Sans', system-ui, sans-serif; } .ds-code-card__head { display: flex; align-items: center; gap: 10px; min-height: 42px; padding: 5px 10px 5px 14px; border-bottom: 1px solid var(--border, #e6e6e6); background: #fff; } .ds-code-card__name { font: 600 11px/1.4 'Doto', ui-monospace, monospace; letter-spacing: 0.02em; color: var(--label, #4d4d4d); } .ds-code-card__copy { margin-left: auto; height: 28px; padding: 0 10px; border: 1px solid var(--border, #e6e6e6); border-radius: 9999px; background: #fff; color: var(--graphite, #4d4d4d); font: 400 11px/1 'Rethink Sans', system-ui, sans-serif; cursor: pointer; } .ds-code-card__copy:hover { color: var(--blue, #2563eb); border-color: var(--blue, #2563eb); } .ds-code-card__copy:focus-visible { outline: 2px solid var(--blue, #2563eb); outline-offset: 3px; } .ds-code-card__pre { margin: 0; padding: 20px 18px; overflow-x: auto; color: var(--ink, #000); font: 900 16.5px/1.6 'Doto', ui-monospace, monospace; letter-spacing: 0.01em; } .ds-code-card__pre code { font: inherit; } .ds-code-card__foot { padding: 8px 14px; border-top: 1px solid var(--border, #e6e6e6); background: #fff; color: var(--graphite, #4d4d4d); font-size: 10.5px; letter-spacing: 0.01em; }"
     },
     {
       "name": "Segmented Control",
@@ -168,7 +168,7 @@
       "kind": "nav",
       "description": "66px sticky bar with a dotted brand mark, five links, and the primary pill.",
       "html": "<header class=\"ds-nav\"><a class=\"ds-nav__brand\" href=\"#top\"><svg width=\"26\" height=\"26\" viewBox=\"0 0 32 32\" fill=\"none\" aria-hidden=\"true\"><circle cx=\"9\" cy=\"16\" r=\"3\" fill=\"#2563eb\"/><circle cx=\"20\" cy=\"9\" r=\"2\" fill=\"#2563eb\"/><circle cx=\"24\" cy=\"21\" r=\"2.5\" fill=\"#2563eb\"/><path d=\"M11.5 14.5 18 10.5M11.5 17.5 21.5 20\" stroke=\"#2563eb\" stroke-width=\"1\"/></svg><span>JUHENZA</span><span class=\"ds-nav__sub\">Auto-Linker</span></a><nav class=\"ds-nav__links\" aria-label=\"Primary\"><a href=\"#mechanism\">How it works</a><a href=\"#demo\">Demo</a><a href=\"#api\">API</a><a href=\"#guarantees\">Invariants</a><a href=\"#blueprint\">Blueprint</a></nav><a class=\"ds-nav__cta\" href=\"#demo\">Try the engine</a></header>",
-      "css": ".ds-nav { display: flex; align-items: center; gap: 28px; height: 66px; padding: 0 24px; border-bottom: 1px solid var(--border, #e6e6e6); background: #fff; font-family: 'Rethink Sans', system-ui, sans-serif; } .ds-nav__brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink, #000); text-decoration: none; font-size: 13.5px; font-weight: 500; letter-spacing: 0.13em; } .ds-nav__sub { padding-left: 12px; margin-left: 2px; border-left: 1px solid var(--border, #e6e6e6); color: var(--graphite, #4d4d4d); font-size: 12.5px; font-weight: 400; letter-spacing: 0.01em; } .ds-nav__links { display: flex; align-items: center; gap: 22px; margin-left: auto; } .ds-nav__links a { color: var(--graphite, #4d4d4d); font-size: 13.5px; text-decoration: none; } .ds-nav__links a:hover { color: var(--ink, #000); } .ds-nav__cta { display: inline-flex; align-items: center; height: 42px; padding: 0 18px; border-radius: 9999px; background: var(--blue, #2563eb); color: #fff; font-size: 14.5px; text-decoration: none; white-space: nowrap; } .ds-nav__cta:hover { background: var(--blue-deep, #1d4ed8); } .ds-nav__cta:focus-visible { outline: 2px solid var(--blue, #2563eb); outline-offset: 3px; } @media (max-width: 720px) { .ds-nav { gap: 8px; padding: 0 20px; } .ds-nav__links, .ds-nav__sub { display: none; } .ds-nav__cta { margin-left: auto; height: 36px; padding: 0 14px; font-size: 13px; } }"
+      "css": ".ds-nav { display: flex; align-items: center; gap: 28px; height: 66px; padding: 0 24px; border-bottom: 1px solid var(--border, #e6e6e6); background: #fff; font-family: 'Rethink Sans', system-ui, sans-serif; } .ds-nav__brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink, #000); text-decoration: none; font-size: 13.5px; font-weight: 600; letter-spacing: 0.13em; } .ds-nav__sub { padding-left: 12px; margin-left: 2px; border-left: 1px solid var(--border, #e6e6e6); color: var(--graphite, #4d4d4d); font-size: 12.5px; font-weight: 400; letter-spacing: 0.01em; } .ds-nav__links { display: flex; align-items: center; gap: 22px; margin-left: auto; } .ds-nav__links a { color: var(--graphite, #4d4d4d); font-size: 13.5px; text-decoration: none; } .ds-nav__links a:hover { color: var(--ink, #000); } .ds-nav__cta { display: inline-flex; align-items: center; height: 42px; padding: 0 18px; border-radius: 9999px; background: var(--blue, #2563eb); color: #fff; font-size: 14.5px; text-decoration: none; white-space: nowrap; } .ds-nav__cta:hover { background: var(--blue-deep, #0520d4); } .ds-nav__cta:focus-visible { outline: 2px solid var(--blue, #2563eb); outline-offset: 3px; } @media (max-width: 720px) { .ds-nav { gap: 8px; padding: 0 20px; } .ds-nav__links, .ds-nav__sub { display: none; } .ds-nav__cta { margin-left: auto; height: 36px; padding: 0 14px; font-size: 13px; } }"
     }
   ],
   "narrative": {
@@ -178,7 +178,7 @@
       "White ground, hairline rules, and a single blue verification signal.",
       "Rethink Sans 400 for display and body; Doto for measurements, URLs, and code.",
       "Flat surfaces at rest; depth only from tonal layering and state shadows.",
-      "7px cards, 12px instrument panels, full-radius pills.",
+      "7px cards, 11px instrument panels, full-radius pills.",
       "Dotted orbital paths as the only ornament, used functionally as anchor-to-destination traces.",
       "Working proof: scan, link, audit, recover — not a screenshot."
     ],
@@ -189,13 +189,13 @@
       { "name": "The Tight Display Rule", "body": "Display and headline weights stay at 400 with negative tracking. Do not bold a headline or add a display serif to create emphasis; use scale and space.", "section": "typography" },
       { "name": "The Dossier Grid Rule", "body": "Content stays on the 1200px measure. Only the hero orbit and the closing panel may break the measure; there is no full-bleed section.", "section": "layout" },
       { "name": "The Flat-By-Default Rule", "body": "A surface is flat at rest. Any shadow must encode state (focus, active, open) or a live instrument effect; it may not decorate a card.", "section": "elevation" },
-      { "name": "The Two-Radius Rule", "body": "Containers are 7px or 12px. Controls are pills. Do not introduce a third container radius for a new surface.", "section": "shapes" }
+      { "name": "The Two-Radius Rule", "body": "Containers are 7px or 11px. Controls are pills. Do not introduce a third container radius for a new surface.", "section": "shapes" }
     ],
     "dos": [
       "Do reserve Verification Blue for links, traces, focus, selected states, and the primary action.",
       "Do use Doto for offsets, scores, URLs, byte counts, and code; use Rethink Sans for every sentence.",
       "Do draw structure with 1px Hairline Rule borders and Paper Grey tonal fields.",
-      "Do keep cards at 7px, instrument panels at 12px, and controls as full pills.",
+      "Do keep cards at 7px, instrument panels at 11px, and controls as full pills.",
       "Do label demo content as synthetic and keep the v0.1 scope, weights, and release status honest.",
       "Do preserve the two public calls, the 12 invariants, and the byte-identical recovery proof in any new surface.",
       "Do keep the page operable at 390px and 1440px, including the mobile section menu."
