@@ -12,7 +12,7 @@ const theme = {
     },
     {
       scope: ['keyword', 'storage.type', 'storage.modifier', 'keyword.operator.new'],
-      settings: { foreground: '#1d4ed8' },
+      settings: { foreground: '#0520d4' },
     },
     {
       scope: ['string', 'string.quoted', 'string.template', 'punctuation.definition.string'],
@@ -20,11 +20,11 @@ const theme = {
     },
     {
       scope: ['constant.numeric', 'constant.language'],
-      settings: { foreground: '#1d4ed8' },
+      settings: { foreground: '#0520d4' },
     },
     {
       scope: ['entity.name.function', 'support.function'],
-      settings: { foreground: '#1d4ed8' },
+      settings: { foreground: '#0520d4' },
     },
     {
       scope: ['entity.name.type', 'support.type', 'support.class', 'entity.name.tag'],
@@ -32,7 +32,7 @@ const theme = {
     },
     {
       scope: ['entity.other.attribute-name', 'variable.other.property', 'meta.object-literal.key'],
-      settings: { foreground: '#3f3f3f' },
+      settings: { foreground: '#4d4d4d' },
     },
     {
       scope: ['variable', 'variable.other', 'variable.parameter'],
@@ -40,7 +40,7 @@ const theme = {
     },
     {
       scope: ['punctuation', 'meta.brace', 'keyword.operator'],
-      settings: { foreground: '#3f3f3f' },
+      settings: { foreground: '#4d4d4d' },
     },
   ],
 };

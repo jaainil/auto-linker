@@ -13,13 +13,13 @@
       "primary-deep": {
         "role": "primary",
         "displayName": "Deep Signal Blue",
-        "canonical": "#1d4ed8",
+        "canonical": "#0520d4",
         "tonalRamp": ["#140066", "#06008c", "#0326b2", "#1e50da", "#3d75ff", "#5e9bff", "#80c1ff", "#a4e8ff"]
       },
       "primary-wash": {
         "role": "primary",
         "displayName": "Proof Wash",
-        "canonical": "#f1f5ff",
+        "canonical": "#e9effd",
         "tonalRamp": ["#090b11", "#22252c", "#3f424a", "#5e6169", "#7f828b", "#a1a5ae", "#c5c9d3", "#eaeef8"]
       },
       "ink": {
@@ -37,7 +37,7 @@
       "label": {
         "role": "neutral",
         "displayName": "Graphite Microcopy",
-        "canonical": "#3f3f3f",
+        "canonical": "#4d4d4d",
         "tonalRamp": ["#0b0b0b", "#252525", "#424242", "#616161", "#828282", "#a5a5a5", "#c9c9c9", "#eeeeee"]
       },
       "border": {
@@ -49,7 +49,7 @@
       "border-strong": {
         "role": "neutral",
         "displayName": "Heavier Rule",
-        "canonical": "#d2d2d2",
+        "canonical": "#b1bac4",
         "tonalRamp": ["#0b0b0b", "#252525", "#424242", "#616161", "#828282", "#a5a5a5", "#c9c9c9", "#eeeeee"]
       },
       "muted": {

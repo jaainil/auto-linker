@@ -3,13 +3,13 @@ name: JUHENZA Auto-Linker
 description: An operable engineering dossier for a source-offset internal linking engine.
 colors:
   primary: "#2563eb"
-  primary-deep: "#1d4ed8"
-  primary-wash: "#f1f5ff"
+  primary-deep: "#0520d4"
+  primary-wash: "#e9effd"
   ink: "#000000"
   graphite: "#4d4d4d"
-  label: "#3f3f3f"
+  label: "#4d4d4d"
   border: "#e6e6e6"
-  border-strong: "#d2d2d2"
+  border-strong: "#b1bac4"
   muted: "#f7f7f7"
   white: "#ffffff"
 typography:
@@ -56,12 +56,12 @@ typography:
     lineHeight: 1.2
     letterSpacing: "0.01em"
 rounded:
-  inline: "2px"
-  chip: "5px"
+  inline: "3px"
+  chip: "3px"
   card: "7px"
-  panel: "12px"
-  field: "12px"
-  close: "16px"
+  panel: "11px"
+  field: "11px"
+  close: "18px"
   pill: "9999px"
 spacing:
   xs: "4px"
@@ -140,7 +140,7 @@ The composition refuses the category's hero-metric-plus-three-cards arrangement.
 - White ground, hairline rules, and a single blue verification signal.
 - Rethink Sans 400 for display and body; Doto for measurements, URLs, and code.
 - Flat surfaces at rest; depth only from tonal layering and state shadows.
-- 7px cards, 12px instrument panels, full-radius pills.
+- 7px cards, 11px instrument panels, full-radius pills.
 - Dotted orbital paths as the only ornament, used functionally as anchor-to-destination traces.
 - Working proof: scan, link, audit, recover — not a screenshot.
 
@@ -150,15 +150,15 @@ A white page, a pencil, and one verification signal.
 
 ### Primary
 - **Verification Blue** (#2563eb): Internal links, dotted traces, focus rings, the primary pill, the active pipeline step, the "verified" state, and the closing CTA field. It is the only saturated color in the system.
-- **Deep Signal Blue** (#1d4ed8): Hover state for primary actions and links; never a resting fill.
-- **Proof Wash** (#f1f5ff): Selected or linked rows, blue tag fills, focus halos, and the active-step halo.
+- **Deep Signal Blue** (#0520d4): Hover state for primary actions and links; never a resting fill.
+- **Proof Wash** (#e9effd): Selected or linked rows, blue tag fills, focus halos, and the active-step halo.
 
 ### Neutral
 - **Press Black** (#000000): Display headlines, body text, and active control labels.
 - **Pencil Graphite** (#4d4d4d): Secondary paragraphs, leads, captions, and URLs.
-- **Graphite Microcopy** (#3f3f3f): Small uppercase labels and tag text.
+- **Graphite Microcopy** (#4d4d4d): Small uppercase labels and tag text.
 - **Hairline Rule** (#e6e6e6): Every structural divider, panel border, and table rule.
-- **Heavier Rule** (#d2d2d2): Control borders, inactive dots, and stronger separations.
+- **Heavier Rule** (#b1bac4): Control borders, inactive dots, and stronger separations.
 - **Paper Grey** (#f7f7f7): Code grounds, formula panels, and quiet table headers.
 - **Dossier White** (#ffffff): The page ground and every raised panel.
 
@@ -213,11 +213,11 @@ The dotted orbital motif is the only atmospheric device. In the hero and close i
 
 ## Shapes
 
-The form language is drawn, not molded: 1px rules, circular dots, full-radius pills, and two container radii. Cards and code cards use 7px; instrument panels and fields use 12px; the closing field uses 16px; tags, pills, and segmented controls are fully rounded. Inline code and small chips step down to 2–5px.
+The form language is drawn, not molded: 1px rules, circular dots, full-radius pills, and two container radii. Cards and code cards use 7px; instrument panels and fields use 11px; the closing field uses 18px; tags, pills, and segmented controls are fully rounded. Inline code and small chips step down to 3px.
 
 There are no bevels, no glass, no hard offset shadows, and no clipped decorative polygons. The only circles larger than a control are the orbit rings, and they are always dotted.
 
-**The Two-Radius Rule.** Containers are 7px or 12px. Controls are pills. Do not introduce a third container radius for a new surface.
+**The Two-Radius Rule.** Containers are 7px or 11px. Controls are pills. Do not introduce a third container radius for a new surface.
 
 ## Components
 
@@ -234,7 +234,7 @@ There are no bevels, no glass, no hard offset shadows, and no clipped decorative
 - **Accent:** Proof Wash ground, Verification Blue text, and a 22% blue border. Used for counts, "3 links added," and verified states.
 
 ### Cards and Panels
-- **Corner Style:** 7px for cards and code cards; 12px for the linking stage, demo, and other instrument panels.
+- **Corner Style:** 7px for cards and code cards; 11px for the linking stage, demo, and other instrument panels.
 - **Background:** Dossier White for content panels; Paper Grey for code and formula grounds.
 - **Border:** 1px Hairline Rule on every edge; no shadow.
 - **Internal Padding:** 20–24px for content panels; code cards use a 42px head, 20px code padding, and a 34px foot.
@@ -250,7 +250,7 @@ There are no bevels, no glass, no hard offset shadows, and no clipped decorative
 - **Mobile:** Brand and primary pill stay; a 36px "Menu" pill opens a full-width white panel of 15px links separated by hairlines. The label becomes "Close" with an X; Escape, a link click, or an outside pointer closes it.
 
 ### Signature: The Linking Stage
-A 12px instrument panel with a file bar, an article excerpt with three blue anchors, an SVG layer of dotted curves from each anchor to a destination rail, and a footer byte count. "Remove markup" swaps the article to its plain source, sets the state to "original intact," and proves the byte count is unchanged; "Insert links again" restores the linked version and redraws the traces. On widths below 900px the traces are removed and the rail stacks under the article.
+An 11px instrument panel with a file bar, an article excerpt with three blue anchors, an SVG layer of dotted curves from each anchor to a destination rail, and a footer byte count. "Remove markup" swaps the article to its plain source, sets the state to "original intact," and proves the byte count is unchanged; "Insert links again" restores the linked version and redraws the traces. On widths below 900px the traces are removed and the rail stacks under the article.
 
 ### Signature: The Demo
 A working reference implementation in the same instrument language: sample tabs, link-count stepper, insert/suggest modes, rendered/HTML views, a blue scan line, destination rows that light up as they are selected, an audit table with score meters, and a "Recover original" control that removes the inserted tags.

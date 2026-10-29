@@ -292,7 +292,7 @@ if (root) {
           : `${result.links.length} link${result.links.length === 1 ? '' : 's'} ${state.mode === 'insert' ? 'inserted' : 'suggested'} · ${result.skipped} candidates rejected · ${result.elapsed.toFixed(1)} ms`;
 
       setBusy(false);
-    }, 520);
+    }, 450);
   }
 
   scenarioButtons.forEach((button) => {

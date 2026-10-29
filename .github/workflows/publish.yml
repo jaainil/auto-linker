@@ -1,0 +1,129 @@
+name: Release & Publish to npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+      dry_run:
+        description: 'Dry run (simulate without publishing, tagging, or committing)'
+        required: false
+        default: false
+        type: boolean
+  push:
+    tags:
+      - 'v*'
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+          cache: npm
+          cache-dependency-path: package/package-lock.json
+
+      - name: Verify npm token secret
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          if [ -z "${{ secrets.NPM_TOKEN }}" ]; then
+            echo "::error::NPM_TOKEN secret is not set in GitHub repository secrets."
+            echo "Please add NPM_TOKEN in GitHub: Settings -> Secrets and variables -> Actions -> Repository secrets"
+            exit 1
+          fi
+
+      - name: Install package dependencies
+        working-directory: package
+        run: npm ci
+
+      - name: Configure Git
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run != true }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version & Tag (workflow_dispatch)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run != true }}
+        id: version_bump
+        run: |
+          cd package
+          NEW_VERSION_RAW=$(npm version ${{ inputs.bump }} --no-git-tag-version)
+          VERSION_CLEAN=${NEW_VERSION_RAW#v}
+          TAG_NAME="v${VERSION_CLEAN}"
+          echo "VERSION=${VERSION_CLEAN}" >> $GITHUB_OUTPUT
+          echo "TAG=${TAG_NAME}" >> $GITHUB_OUTPUT
+          
+          cd ..
+          git add package/package.json package/package-lock.json
+          git commit -m "chore(release): @juhenza/auto-linker ${TAG_NAME}"
+          git tag -a "${TAG_NAME}" -m "Release ${TAG_NAME}"
+          
+          # Pull any remote changes and push commit + tag
+          git pull --rebase origin main || true
+          git push origin main
+          git push origin "${TAG_NAME}"
+
+      - name: Run verification checks & build
+        working-directory: package
+        run: |
+          npm run prepack
+          node examples/basic.mjs
+          node evaluation/evaluate.mjs
+
+      - name: Publish to npm (Dry Run)
+        if: ${{ inputs.dry_run == true }}
+        working-directory: package
+        run: npm publish --access public --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to npm
+        if: ${{ inputs.dry_run != true }}
+        working-directory: package
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run != true }}
+        run: |
+          gh release create "${{ steps.version_bump.outputs.TAG }}" \
+            --title "@juhenza/auto-linker ${{ steps.version_bump.outputs.TAG }}" \
+            --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Summary
+        run: |
+          CURRENT_VER=$(node -p "require('./package/package.json').version")
+          echo "### 🚀 Release Pipeline Status" >> $GITHUB_STEP_SUMMARY
+          echo "- **Package:** \`@juhenza/auto-linker\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** \`${CURRENT_VER}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Registry:** [npmjs.com/package/@juhenza/auto-linker](https://www.npmjs.com/package/@juhenza/auto-linker)" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            echo "- **Mode:** \`DRY RUN\` (No files were published or committed)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- **Status:** Published successfully with npm provenance" >> $GITHUB_STEP_SUMMARY
+          fi

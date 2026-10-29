@@ -2,14 +2,17 @@
 @import '@fontsource-variable/doto';
 
 :root {
+  /* context.dev extracted colors */
   --blue: #2563eb;
-  --blue-deep: #1d4ed8;
-  --blue-wash: #f1f5ff;
+  --blue-deep: #0520d4;
+  --blue-wash: #e9effd;
   --ink: #000000;
+  --ink-dark: #030712;
   --graphite: #4d4d4d;
-  --label: #3f3f3f;
+  --label: #4d4d4d;
   --border: #e6e6e6;
-  --border-strong: #d2d2d2;
+  --border-strong: #b1bac4;
+  /* note: #f7f7f7 derived via HSL lightness adjustment from extracted neutral #e6e6e6 (hsl(0 0% 90% -> 97%)) */
   --muted: #f7f7f7;
   --white: #ffffff;
   --font-sans: 'Rethink Sans Variable', 'Rethink Sans', system-ui, -apple-system, sans-serif;
@@ -17,10 +20,18 @@
   --max: 1200px;
   --gutter: clamp(20px, 4vw, 24px);
   --section: clamp(64px, 8vw, 96px);
+  /* context.dev extracted radii scale: 3px, 7px, 11px, 18px, 25px, 29px */
+  --radius-sm: 3px;
   --radius-card: 7px;
-  --radius-panel: 12px;
-  --radius-input: 12px;
+  --radius-panel: 11px;
+  --radius-input: 11px;
+  --radius-close: 18px;
   --pill: 9999px;
+  /* context.dev extracted motion: 100ms, 160ms, 260ms, 450ms */
+  --dur-100: 100ms;
+  --dur-160: 160ms;
+  --dur-260: 260ms;
+  --dur-450: 450ms;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -84,7 +95,7 @@ body {
 :focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 a {
@@ -92,7 +103,7 @@ a {
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
   text-decoration-skip-ink: auto;
-  transition: color 160ms var(--ease-out);
+  transition: color var(--dur-160) var(--ease-out);
 }
 
 a:hover {
@@ -155,7 +166,7 @@ h3 {
 }
 
 strong {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 code,
@@ -291,7 +302,7 @@ hr {
   width: 15px;
   height: 15px;
   flex: none;
-  transition: transform 220ms var(--ease);
+  transition: transform var(--dur-260) var(--ease);
 }
 
 .pill:hover {
@@ -385,8 +396,8 @@ hr {
   cursor: pointer;
   white-space: nowrap;
   transition:
-    background-color 150ms var(--ease-out),
-    color 150ms var(--ease-out);
+    background-color var(--dur-160) var(--ease-out),
+    color var(--dur-160) var(--ease-out);
 }
 
 .seg button:hover {
@@ -428,7 +439,7 @@ hr {
   border-radius: 50%;
   color: var(--ink);
   cursor: pointer;
-  transition: background-color 150ms var(--ease-out);
+  transition: background-color var(--dur-160) var(--ease-out);
 }
 
 .stepper button:hover {
@@ -454,7 +465,7 @@ hr {
   z-index: 100;
   background: var(--white);
   border-bottom: 1px solid transparent;
-  transition: border-color 200ms var(--ease-out);
+  transition: border-color var(--dur-160) var(--ease-out);
 }
 
 .nav.is-scrolled {
@@ -489,7 +500,7 @@ hr {
 .brand__word {
   font-size: 13.5px;
   letter-spacing: 0.13em;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1;
 }
 
@@ -542,8 +553,8 @@ hr {
   line-height: 1;
   cursor: pointer;
   transition:
-    color 150ms var(--ease-out),
-    border-color 150ms var(--ease-out);
+    color var(--dur-160) var(--ease-out),
+    border-color var(--dur-160) var(--ease-out);
 }
 
 .nav__menu:hover {
@@ -583,7 +594,7 @@ hr {
   border-radius: var(--pill);
   text-decoration: none;
   font-size: 13px;
-  transition: top 160ms var(--ease-out);
+  transition: top var(--dur-160) var(--ease-out);
 }
 
 .skip-link:focus {
@@ -714,7 +725,7 @@ hr {
 
 .stage__bar .mono {
   font-size: 11px;
-  font-weight: 550;
+  font-weight: 600;
   letter-spacing: 0.03em;
   text-transform: none;
   white-space: nowrap;
@@ -782,8 +793,8 @@ hr {
   text-underline-offset: 4px;
   cursor: pointer;
   transition:
-    background-color 150ms var(--ease-out),
-    color 150ms var(--ease-out);
+    background-color var(--dur-160) var(--ease-out),
+    color var(--dur-160) var(--ease-out);
 }
 
 .trace-anchor:hover,
@@ -794,8 +805,8 @@ hr {
 
 .trace-path {
   transition:
-    opacity 240ms var(--ease-out),
-    stroke-width 240ms var(--ease-out);
+    opacity var(--dur-260) var(--ease-out),
+    stroke-width var(--dur-260) var(--ease-out);
 }
 
 .trace-path.is-hot {
@@ -805,8 +816,8 @@ hr {
 
 .trace-pin {
   transition:
-    opacity 240ms var(--ease-out),
-    r 240ms var(--ease-out);
+    opacity var(--dur-260) var(--ease-out),
+    r var(--dur-260) var(--ease-out);
 }
 
 .trace-pin.is-hot {
@@ -829,7 +840,7 @@ hr {
   z-index: 1;
   pointer-events: none;
   overflow: visible;
-  transition: opacity 300ms var(--ease-out);
+  transition: opacity var(--dur-260) var(--ease-out);
 }
 
 .stage.is-recovered .stage__traces {
@@ -849,10 +860,10 @@ hr {
   position: relative;
   display: block;
   padding: 8px 8px 8px 16px;
-  border-radius: 5px;
+  border-radius: var(--radius-card);
   text-decoration: none;
   color: inherit;
-  transition: background-color 180ms var(--ease-out);
+  transition: background-color var(--dur-160) var(--ease-out);
 }
 
 .dest::before {
@@ -867,8 +878,8 @@ hr {
   border: 1px solid var(--border-strong);
   background: var(--white);
   transition:
-    border-color 180ms var(--ease-out),
-    background-color 180ms var(--ease-out);
+    border-color var(--dur-160) var(--ease-out),
+    background-color var(--dur-160) var(--ease-out);
 }
 
 .dest:hover,
@@ -920,7 +931,7 @@ hr {
 
 .stage__foot .mono {
   font-size: 11px;
-  font-weight: 550;
+  font-weight: 600;
   text-transform: none;
   letter-spacing: 0.02em;
 }
@@ -937,9 +948,9 @@ hr {
   color: var(--graphite);
   cursor: pointer;
   transition:
-    border-color 150ms var(--ease-out),
-    color 150ms var(--ease-out),
-    background-color 150ms var(--ease-out);
+    border-color var(--dur-160) var(--ease-out),
+    color var(--dur-160) var(--ease-out),
+    background-color var(--dur-160) var(--ease-out);
 }
 
 .stage__recover:hover {
@@ -1174,7 +1185,7 @@ hr {
   margin-top: 16px;
   padding: 5px 9px;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   background: var(--muted);
   font-family: var(--font-mono);
   font-size: 12px;
@@ -1220,7 +1231,7 @@ hr {
   line-height: 1.7;
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-card);
   padding: 18px 18px 16px;
   overflow-x: auto;
   color: var(--label);
@@ -1295,7 +1306,7 @@ hr {
 }
 
 .demo__run.is-busy svg {
-  animation: spin 700ms linear infinite;
+  animation: spin var(--dur-450) linear infinite;
 }
 
 @keyframes spin {
@@ -1364,14 +1375,14 @@ hr {
   color: var(--blue);
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
-  animation: link-in 420ms var(--ease-out) both;
+  animation: link-in var(--dur-450) var(--ease-out) both;
 }
 
 .demo__article span[data-autolink] {
   text-decoration-style: dashed;
   color: var(--blue-deep);
   background: var(--blue-wash);
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
   padding: 1px 2px 2px;
 }
 
@@ -1396,7 +1407,7 @@ hr {
 }
 
 .demo.is-scanning .demo__scan {
-  animation: scan 620ms var(--ease-out) both;
+  animation: scan var(--dur-450) var(--ease-out) both;
 }
 
 @keyframes scan {
@@ -1429,7 +1440,7 @@ hr {
 .demo__source .tag-new {
   color: var(--blue);
   background: var(--blue-wash);
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .demo__pane-foot {
@@ -1464,9 +1475,9 @@ hr {
   color: var(--graphite);
   cursor: pointer;
   transition:
-    color 150ms var(--ease-out),
-    border-color 150ms var(--ease-out),
-    background-color 150ms var(--ease-out);
+    color var(--dur-160) var(--ease-out),
+    border-color var(--dur-160) var(--ease-out),
+    background-color var(--dur-160) var(--ease-out);
 }
 
 .demo__recover:hover:not(:disabled) {
@@ -1491,7 +1502,7 @@ hr {
   gap: 2px 10px;
   padding: 12px 14px;
   border-bottom: 1px solid var(--border);
-  transition: background-color 180ms var(--ease-out);
+  transition: background-color var(--dur-160) var(--ease-out);
 }
 
 .corpus__row:last-child {
@@ -1551,8 +1562,8 @@ hr {
   border-radius: 50%;
   border: 1px solid var(--border-strong);
   transition:
-    background-color 180ms var(--ease-out),
-    border-color 180ms var(--ease-out);
+    background-color var(--dur-160) var(--ease-out),
+    border-color var(--dur-160) var(--ease-out);
 }
 
 .corpus__row.is-linked .corpus__state {
@@ -1637,7 +1648,7 @@ hr {
   align-items: center;
   padding: 13px 14px;
   border-bottom: 1px solid var(--border);
-  animation: row-in 360ms var(--ease-out) both;
+  animation: row-in var(--dur-260) var(--ease-out) both;
 }
 
 .audit__row:last-child {
@@ -1784,9 +1795,9 @@ hr {
   border: 1px solid var(--border);
   font-family: var(--font-sans);
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1;
-  color: #3f3f3f;
+  color: var(--label);
   text-transform: uppercase;
   letter-spacing: 0.07em;
   background: var(--white);
@@ -1859,7 +1870,7 @@ hr {
 .pkg__row span:last-child {
   font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--ink);
   text-transform: none;
   letter-spacing: 0.01em;
@@ -1920,8 +1931,8 @@ hr {
   color: var(--graphite);
   cursor: pointer;
   transition:
-    color 150ms var(--ease-out),
-    border-color 150ms var(--ease-out);
+    color var(--dur-160) var(--ease-out),
+    border-color var(--dur-160) var(--ease-out);
 }
 
 .code-card__copy:hover {
@@ -2137,7 +2148,7 @@ hr {
   align-items: baseline;
   padding: 13px 2px;
   border-bottom: 1px solid var(--border);
-  transition: background-color 160ms var(--ease-out);
+  transition: background-color var(--dur-160) var(--ease-out);
 }
 
 .inv:hover {
@@ -2306,7 +2317,7 @@ hr {
   background: var(--blue-wash);
   margin: -1px 0 0;
   padding-left: 14px;
-  border-radius: 0 0 4px 4px;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
 }
 
 .stage-col--first .stage-col__n {
@@ -2393,7 +2404,7 @@ hr {
   overflow: hidden;
   background: var(--blue);
   color: var(--white);
-  border-radius: 16px;
+  border-radius: var(--radius-close);
   padding: clamp(36px, 5.5vw, 64px);
   isolation: isolate;
 }
@@ -2454,7 +2465,7 @@ hr {
   color: rgb(255 255 255 / 0.82);
   font-family: var(--font-sans);
   font-size: 10.5px;
-  font-weight: 500;
+  font-weight: 450;
   text-transform: none;
   letter-spacing: 0.035em;
 }
@@ -2537,8 +2548,8 @@ html.js .reveal {
   opacity: 0;
   transform: translateY(14px);
   transition:
-    opacity 700ms var(--ease-out),
-    transform 700ms var(--ease);
+    opacity var(--dur-450) var(--ease-out),
+    transform var(--dur-450) var(--ease);
 }
 
 html.js .reveal.is-in {
@@ -2992,7 +3003,7 @@ html.js .reveal.is-in {
   }
 
   .close__panel {
-    border-radius: 12px;
+    border-radius: var(--radius-panel);
   }
 
   .footer__top {

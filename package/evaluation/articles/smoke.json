@@ -1,0 +1,40 @@
+[
+  {
+    "id": "business-costs",
+    "content": "<p>AI automation reduces manual work. Custom software streamlines operations.</p>",
+    "pages": [
+      { "url": "https://example.com/ai", "title": "AI automation services", "anchors": ["AI automation"], "keywords": ["AI automation"] },
+      { "url": "https://example.com/software", "title": "Custom software development", "anchors": ["custom software"], "keywords": ["custom software"] }
+    ],
+    "approved": [{ "anchor": "AI automation", "url": "https://example.com/ai" }, { "anchor": "Custom software", "url": "https://example.com/software" }],
+    "forbidden": []
+  },
+  {
+    "id": "title-only",
+    "content": "<p>Workflow automation improves turnaround times.</p>",
+    "pages": [{ "url": "https://example.com/workflows", "title": "Workflow automation" }],
+    "approved": [{ "anchor": "Workflow automation", "url": "https://example.com/workflows" }],
+    "forbidden": []
+  },
+  {
+    "id": "negative-unrelated",
+    "content": "<p>The telescope reveals distant stars and planets.</p>",
+    "pages": [{ "url": "https://example.com/ai", "title": "AI automation", "anchors": ["AI automation"] }],
+    "approved": [],
+    "forbidden": [{ "anchor": "telescope", "url": "https://example.com/ai" }]
+  },
+  {
+    "id": "negative-excluded",
+    "content": "<h2>AI automation</h2><pre>AI automation</pre><div data-autolink-skip>AI automation</div>",
+    "pages": [{ "url": "https://example.com/ai", "title": "AI automation", "anchors": ["AI automation"] }],
+    "approved": [],
+    "forbidden": [{ "anchor": "AI automation", "url": "https://example.com/ai" }]
+  },
+  {
+    "id": "unicode",
+    "content": "<p>😀 Café numérique supports local businesses.</p>",
+    "pages": [{ "url": "https://example.com/cafe", "title": "Café numérique", "anchors": ["café numérique"] }],
+    "approved": [{ "anchor": "Café numérique", "url": "https://example.com/cafe" }],
+    "forbidden": []
+  }
+]
