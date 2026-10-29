@@ -93,10 +93,6 @@ jobs:
       - name: Publish public package with provenance
         if: github.event_name != 'workflow_dispatch' || !inputs.dry_run
         run: npm publish --access public --provenance
-        env:
-          # Temporary bootstrap fallback for the first release. Subsequent
-          # releases use OIDC after npm trusted publishing is configured.
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Summary
         env:
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
