@@ -49,3 +49,12 @@ Inserted anchors carry `data-autolink="juhenza-v1"`. An article with this marker
 Ranking uses preferred anchors, title, headings, keywords and BM25 with experimental 35/25/15/15/10 weights, normalized over metadata fields actually supplied. Non-preferred candidates must occur as a contiguous phrase in destination title, headings or keywords. Selection is greedy and deterministic, with ambiguity penalties, no overlapping anchors or duplicate destinations, and per-block limits. Short/generic phrases are penalized. There is no language-specific grammar model, stemming or semantic understanding. A phrase index prunes unrelated destinations before scoring; metadata indexing and dense matches can still be costly on very large corpora. Run `npm run benchmark` for a reproducible synthetic 100-page sparse-match example.
 
 This version has synthetic fixtures and invariant tests. Precision on 20–30 independently reviewed real articles, supported-Node CI results, full dependency license review, name availability and npm publication are still release gates. Do not interpret smoke tests as proof of 90% precision. MIT licensing is supplied for the new library; the website is outside the package tarball.
+
+## Releases and Publishing
+
+Releases are published to npmjs.org automatically via GitHub Actions:
+- **Workflow:** [`.github/workflows/publish.yml`](../.github/workflows/publish.yml)
+- **Auto-version bump:** Triggers via `workflow_dispatch` in GitHub Actions with `patch`, `minor`, or `major` input.
+- **Verification:** Runs typecheck, tests, examples, and builds before publishing.
+- **npm configuration:** Published under public access (`publishConfig.access = "public"`) with provenance.
+- **Requirement:** Add your npm granular access token or automation token as `NPM_TOKEN` under GitHub repository secrets.
