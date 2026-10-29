@@ -7,6 +7,7 @@
   --blue-wash: #f1f5ff;
   --ink: #000000;
   --graphite: #4d4d4d;
+  --label: #3f3f3f;
   --border: #e6e6e6;
   --border-strong: #d2d2d2;
   --muted: #f7f7f7;
@@ -55,6 +56,26 @@ body {
 
 
 
+/* Custom scrollbar — matches Hairline Rule system */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--graphite);
+}
+
+/* Text selection */
 ::selection {
   background: var(--blue);
   color: var(--white);
@@ -70,6 +91,7 @@ a {
   color: var(--blue);
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
+  text-decoration-skip-ink: auto;
   transition: color 160ms var(--ease-out);
 }
 
@@ -165,7 +187,7 @@ hr {
   line-height: 1.4;
   letter-spacing: 0.04em;
   font-weight: 600;
-  color: #3f3f3f;
+  color: var(--label);
   text-transform: uppercase;
 }
 
@@ -275,7 +297,6 @@ hr {
 .pill:hover {
   --pill-bg: var(--blue-deep);
   --pill-fg: var(--white);
-  color: var(--white);
 }
 
 .pill:hover svg {
@@ -291,7 +312,6 @@ hr {
 .pill--secondary:hover {
   --pill-bg: var(--muted);
   --pill-fg: var(--blue-deep);
-  color: var(--blue-deep);
 }
 
 .pill--quiet {
@@ -417,12 +437,13 @@ hr {
 }
 
 .stepper output {
-  font-family: var(--font-sans);
-  font-size: 13.5px;
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
   min-width: 20px;
   text-align: center;
   color: var(--ink);
+  letter-spacing: 0.01em;
 }
 
 /* ---------- nav ---------- */
@@ -637,7 +658,7 @@ hr {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.055em;
-  color: #3a3a3a;
+  color: var(--label);
 }
 
 .hero__facts .dot-sep {
@@ -667,6 +688,10 @@ hr {
 }
 
 /* ---------- hero stage ---------- */
+
+.hero__stage-wrap {
+  min-width: 0;
+}
 
 .stage {
   position: relative;
@@ -1003,7 +1028,7 @@ hr {
   font-family: var(--font-mono);
   font-size: 10.5px;
   font-weight: 600;
-  color: #666666;
+  color: var(--graphite);
   white-space: nowrap;
   text-transform: none;
 }
@@ -1198,7 +1223,7 @@ hr {
   border-radius: 6px;
   padding: 18px 18px 16px;
   overflow-x: auto;
-  color: #333333;
+  color: var(--label);
   text-transform: none;
 }
 
@@ -1695,7 +1720,7 @@ hr {
   overflow: hidden;
 }
 
-.audit__meter i {
+.audit__meter span {
   display: block;
   height: 100%;
   background: var(--blue);
@@ -1722,12 +1747,6 @@ hr {
   font-size: 10.5px;
   font-weight: 600;
   letter-spacing: 0.04em;
-}
-
-.demo__stats strong {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ink);
 }
 
 .demo__stats strong {
@@ -2024,7 +2043,6 @@ hr {
   transform-origin: left;
   transform: scaleX(var(--w));
 }
-
 .weights__foot {
   display: flex;
   justify-content: space-between;
@@ -2145,7 +2163,7 @@ hr {
   font-size: 11px;
   font-weight: 600;
   line-height: 15px;
-  color: #4a4a4a;
+  color: var(--label);
   text-transform: none;
   letter-spacing: 0.01em;
   text-align: right;
@@ -3065,5 +3083,5 @@ html.js .reveal.is-in {
 .stepper button:focus-visible,
 .seg button:focus-visible {
   outline: 2px solid var(--blue);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }

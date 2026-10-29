@@ -171,7 +171,8 @@ if (root) {
       score.className = 'audit__score';
       const meter = document.createElement('span');
       meter.className = 'audit__meter';
-      const fill = document.createElement('i');
+      meter.setAttribute('aria-hidden', 'true');
+      const fill = document.createElement('span');
       fill.style.width = `${Math.round(link.score * 100)}%`;
       meter.appendChild(fill);
       const value = document.createElement('b');
