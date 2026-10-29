@@ -1,0 +1,41 @@
+---
+import BrandMark from './BrandMark.astro';
+import Icon from './Icon.astro';
+---
+
+<header class="nav" data-nav>
+  <div class="wrap nav__inner">
+    <a class="brand" href="#top" aria-label="JUHENZA Auto-Linker, back to top">
+      <BrandMark />
+      <span class="brand__word">JUHENZA</span>
+      <span class="brand__sub">Auto-Linker</span>
+    </a>
+
+    <nav class="nav__links" id="primary-nav" aria-label="Primary">
+      <a href="#mechanism">How it works</a>
+      <a href="#demo">Demo</a>
+      <a href="#api">API</a>
+      <a href="#guarantees">Invariants</a>
+      <a href="#blueprint">Blueprint</a>
+    </nav>
+
+    <div class="nav__cta">
+      <a class="pill pill--primary" href="#demo">
+        Try the engine
+        <Icon name="arrow" />
+      </a>
+    </div>
+
+    <button
+      class="nav__menu"
+      type="button"
+      data-nav-toggle
+      aria-expanded="false"
+      aria-controls="primary-nav"
+    >
+      <span data-nav-label>Menu</span>
+      <span class="nav__menu-icon" data-icon="menu"><Icon name="menu" size={14} /></span>
+      <span class="nav__menu-icon" data-icon="close"><Icon name="close" size={14} /></span>
+    </button>
+  </div>
+</header>

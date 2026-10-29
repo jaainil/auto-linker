@@ -1,0 +1,10 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome' });
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
+const page = await ctx.newPage();
+await page.goto('http://localhost:4322/', { waitUntil: 'networkidle' });
+await page.evaluate(() => { document.querySelectorAll('.reveal').forEach(e => e.classList.add('is-in')); document.querySelector('.nav')?.remove(); });
+await page.addStyleTag({ content: `.code-card pre { font-weight: 800 !important; font-size: 15px !important; line-height: 1.65 !important; }` });
+await page.waitForTimeout(300);
+await page.locator('#api .code-card').first().screenshot({ path: '.impeccable/review/weight-800.png' });
+await browser.close();

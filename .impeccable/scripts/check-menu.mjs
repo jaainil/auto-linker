@@ -1,0 +1,18 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome' });
+const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+const page = await ctx.newPage();
+await page.goto('http://localhost:4321/', { waitUntil: 'networkidle' });
+await page.click('[data-nav-toggle]');
+await page.waitForTimeout(200);
+await page.screenshot({ path: '.impeccable/review/mobile-menu.png' });
+console.log('expanded', await page.getAttribute('[data-nav-toggle]', 'aria-expanded'));
+console.log('panel visible', await page.locator('#primary-nav').isVisible());
+await page.keyboard.press('Escape');
+await page.waitForTimeout(200);
+console.log('after esc', await page.getAttribute('[data-nav-toggle]', 'aria-expanded'), await page.locator('#primary-nav').isVisible());
+await page.click('[data-nav-toggle]');
+await page.click('#primary-nav a[href="#api"]');
+await page.waitForTimeout(400);
+console.log('after link', await page.getAttribute('[data-nav-toggle]', 'aria-expanded'), 'hash', await page.evaluate(() => location.hash));
+await browser.close();

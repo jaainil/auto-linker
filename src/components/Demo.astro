@@ -1,0 +1,90 @@
+---
+import Icon from './Icon.astro';
+import { scenarios } from '../lib/samples';
+---
+
+<div class="demo" data-demo>
+  <div class="demo__toolbar">
+    <div class="seg" role="group" aria-label="Sample article">
+      {
+        scenarios.map((scenario, index) => (
+          <button type="button" data-scenario={index} aria-pressed={index === 0 ? 'true' : 'false'}>
+            {scenario.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="demo__controls">
+      <div class="stepper">
+        <span class="stepper__label">Links</span>
+        <button type="button" data-step="-" aria-label="Fewer links">−</button>
+        <output data-max>4</output>
+        <button type="button" data-step="+" aria-label="More links">+</button>
+      </div>
+
+      <div class="seg" role="group" aria-label="Output mode">
+        <button type="button" data-mode="insert" aria-pressed="true">Insert</button>
+        <button type="button" data-mode="suggest" aria-pressed="false">Suggest</button>
+      </div>
+
+      <button class="pill pill--primary demo__run" type="button" data-run>
+        <span data-run-label>Insert links</span>
+        <Icon name="arrow" />
+      </button>
+    </div>
+  </div>
+
+  <div class="demo__grid">
+    <section class="demo__pane demo__pane--article" aria-label="Article">
+      <div class="demo__pane-head">
+        <span class="mono">Article</span>
+        <span class="tag">HTML in</span>
+        <div class="seg" role="group" aria-label="Article view">
+          <button type="button" data-view="rendered" aria-pressed="true">Rendered</button>
+          <button type="button" data-view="html" aria-pressed="false">HTML</button>
+        </div>
+      </div>
+      <div class="demo__scan" aria-hidden="true"></div>
+      <div class="demo__article" data-article></div>
+      <pre class="demo__source" data-source hidden></pre>
+      <div class="demo__pane-foot">
+        <span class="mono" data-bytes>0 bytes in · 0 tags added</span>
+        <button class="demo__recover" type="button" data-recover disabled>Recover original</button>
+      </div>
+    </section>
+
+    <aside class="demo__pane demo__pane--corpus" aria-label="Destination pages">
+      <div class="demo__pane-head">
+        <span class="mono">Destination pages</span>
+        <span class="tag tag--blue" data-corpus-count>4</span>
+      </div>
+      <div class="corpus" data-corpus></div>
+      <div class="demo__pane-foot">
+        <span class="mono">supplied by the developer</span>
+      </div>
+    </aside>
+  </div>
+
+  <div class="demo__result">
+    <div class="demo__result-head">
+      <span class="mono">Audit</span>
+      <span class="tag">selected</span>
+      <span class="demo__live" data-live aria-live="polite"></span>
+    </div>
+    <div class="demo__empty" data-empty>No run yet. The engine will only return links that clear every rule.</div>
+    <ol class="audit" data-audit hidden></ol>
+    <div class="demo__stats">
+      <span class="mono">selected <strong data-stat="links">0</strong></span>
+      <span class="mono">candidates <strong data-stat="candidates">0</strong></span>
+      <span class="mono">rejected <strong data-stat="skipped">0</strong></span>
+      <span class="mono">threshold <strong>0.52</strong></span>
+      <span class="mono">runtime <strong data-stat="time">—</strong></span>
+    </div>
+    <div class="demo__diag mono" data-diag hidden></div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/demo';
+</script>

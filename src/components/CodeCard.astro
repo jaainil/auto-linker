@@ -1,0 +1,31 @@
+---
+import { Code } from 'astro:components';
+import Icon from './Icon.astro';
+import theme from '../lib/shiki-theme.mjs';
+
+interface Props {
+  code: string;
+  lang?: string;
+  name: string;
+  id: string;
+  note?: string;
+}
+
+const { code, lang = 'ts', name, id, note = 'Proposed API · TypeScript' } = Astro.props;
+---
+
+<div class="code-card">
+  <div class="code-card__head">
+    <span class="code-card__name">{name}</span>
+    <button class="code-card__copy" type="button" data-copy={id} aria-label={`Copy ${name}`}>
+      <Icon name="copy" size={12} />
+      <span>Copy</span>
+    </button>
+  </div>
+  <div id={id} class="code-card__body">
+    <Code code={code} lang={lang} theme={theme} />
+  </div>
+  <div class="code-card__foot">
+    <span class="mono">{note}</span>
+  </div>
+</div>

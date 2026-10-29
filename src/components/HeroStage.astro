@@ -1,0 +1,58 @@
+---
+import Icon from './Icon.astro';
+---
+
+<div class="stage" data-stage aria-label="Diagram of an article with three verified internal links">
+  <div class="stage__bar">
+    <span class="stage__dot" aria-hidden="true"></span>
+    <span class="mono">ai-automation-costs.html</span>
+    <span class="stage__state" data-stage-state>3 verified</span>
+  </div>
+
+  <div class="stage__body">
+    <div class="stage__article" data-stage-article>
+      <p>
+        Businesses can reduce repetitive tasks using <a class="trace-anchor" href="#demo" data-dest="0">AI automation</a>.
+        <a class="trace-anchor" href="#demo" data-dest="1">Custom software</a> can help organizations streamline their
+        operations, and a <a class="trace-anchor" href="#demo" data-dest="2">workflow automation</a> layer keeps the
+        handoffs honest.
+      </p>
+      <p class="para-soft">
+        The wording is never rewritten. The engine adds two tags per link and nothing else.
+      </p>
+    </div>
+
+    <svg class="stage__traces" data-traces aria-hidden="true" focusable="false"></svg>
+
+    <div class="stage__rail">
+      <a class="dest" href="#demo" data-dest-row="0">
+        <span class="dest__title">AI Automation Services</span>
+        <span class="dest__url">/ai-automation</span>
+      </a>
+      <a class="dest" href="#demo" data-dest-row="1">
+        <span class="dest__title">Custom Software Development</span>
+        <span class="dest__url">/custom-software</span>
+      </a>
+      <a class="dest" href="#demo" data-dest-row="2">
+        <span class="dest__title">Workflow Automation Guide</span>
+        <span class="dest__url">/workflow-automation</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="stage__foot">
+    <span class="mono" data-stage-bytes>Source preserved · byte for byte</span>
+    <button class="stage__recover" type="button" data-stage-recover>
+      Remove markup
+    </button>
+  </div>
+</div>
+
+<div class="hero__caption">
+  <span class="mono">Synthetic article · reference demo</span>
+  <span class="mono">Remove markup → source restored</span>
+</div>
+
+<script>
+  import '../scripts/hero-stage';
+</script>

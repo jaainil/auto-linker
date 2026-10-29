@@ -1,0 +1,693 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import HeroStage from '../components/HeroStage.astro';
+import Demo from '../components/Demo.astro';
+import CodeCard from '../components/CodeCard.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Base
+  title="JUHENZA Auto-Linker — content in, verified links out"
+  description="An open-source internal linking engine for HTML. Deterministic, in-memory, and source-offset safe: only anchor tags are added, never rewritten text."
+>
+  <Nav />
+
+  <main id="main">
+    <section class="hero">
+      <svg class="hero__orbits" viewBox="0 0 900 900" fill="none" aria-hidden="true">
+        <g stroke="currentColor" stroke-width="1" stroke-dasharray="1.5 9">
+          <ellipse cx="450" cy="450" rx="420" ry="186" transform="rotate(-24 450 450)" opacity="0.55" />
+          <ellipse cx="450" cy="450" rx="356" ry="138" transform="rotate(27 450 450)" opacity="0.35" />
+          <ellipse cx="450" cy="450" rx="288" ry="288" opacity="0.16" />
+        </g>
+        <circle cx="142" cy="286" r="3" fill="currentColor" opacity="0.5" />
+        <circle cx="742" cy="214" r="4" fill="currentColor" opacity="0.6" />
+        <circle cx="792" cy="648" r="2.5" fill="currentColor" opacity="0.4" />
+      </svg>
+
+      <div class="wrap">
+        <div class="hero__grid">
+          <div class="hero__copy">
+            <h1>Content in.<br /><em>Verified</em> links out.</h1>
+            <p class="hero__sub">
+              An internal linking engine for HTML that works from the pages you already have. It finds the phrases
+              your corpus can support, inserts only those links, and leaves every other byte where it was.
+            </p>
+
+            <div class="hero__actions">
+              <a class="pill pill--primary" href="#demo">
+                Try the engine
+                <Icon name="arrow" />
+              </a>
+              <a class="pill pill--secondary" href="#blueprint">Read the blueprint</a>
+            </div>
+
+            <div class="hero__facts" aria-label="Product constraints">
+              <span class="mono">No crawler</span>
+              <span class="dot-sep" aria-hidden="true"></span>
+              <span class="mono">No database</span>
+              <span class="dot-sep" aria-hidden="true"></span>
+              <span class="mono">No API key</span>
+              <span class="dot-sep" aria-hidden="true"></span>
+              <span class="mono">No model</span>
+            </div>
+
+            <p class="hero__status">v0.1.0 scope finalized. The first commit is the invariant suite.</p>
+          </div>
+
+          <div class="hero__stage-wrap">
+            <HeroStage />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" id="problem">
+      <div class="wrap">
+        <div class="split">
+          <div class="split__aside reveal">
+            <h2>A hundred pages, and every new article starts from memory.</h2>
+            <p class="lead">
+              Internal links are the cheapest relevance a site owns. They are also the first thing a publishing
+              workflow drops, because finding them by hand means rereading the archive and guessing which phrase
+              deserves the link.
+            </p>
+          </div>
+
+          <div class="reveal">
+            <ol class="manual">
+              <li>
+                <span class="mono">01</span>
+                <p>Reread the archive <span>— a hundred URLs and no usable index.</span></p>
+                <span class="time">~40 min</span>
+              </li>
+              <li>
+                <span class="mono">02</span>
+                <p>Shortlist destinations <span>— by memory, not by relevance.</span></p>
+                <span class="time">~20 min</span>
+              </li>
+              <li>
+                <span class="mono">03</span>
+                <p>Choose the phrase <span>— specific enough to mean something.</span></p>
+                <span class="time">~10 min</span>
+              </li>
+              <li>
+                <span class="mono">04</span>
+                <p>Insert and verify <span>— no overlap, no self-link, no broken markup.</span></p>
+                <span class="time">~15 min</span>
+              </li>
+              <li>
+                <span class="mono">05</span>
+                <p>Repeat <span>— for every article, forever.</span></p>
+                <span class="time">per article</span>
+              </li>
+            </ol>
+            <p class="manual__end">
+              The engine replaces the search, the shortlist, and the insertion.
+              <em>The judgement stays with you</em>: every destination comes from the list you supplied.
+            </p>
+          </div>
+        </div>
+
+        <div class="example-pair reveal">
+          <div class="example">
+            <div class="example__head">
+              <span class="mono">Input</span>
+              <span class="tag">authored copy</span>
+            </div>
+            <div class="example__body">
+              Businesses can reduce repetitive tasks using <span class="ghost">AI automation</span>.
+              <span class="ghost">Custom software</span> can help organizations streamline their operations, and a
+              <span class="ghost">workflow automation</span> layer keeps the handoffs honest.
+            </div>
+          </div>
+
+          <div class="example example--out">
+            <div class="example__head">
+              <span class="mono">Output</span>
+              <span class="tag tag--blue">3 links added</span>
+            </div>
+            <div class="example__body">
+              Businesses can reduce repetitive tasks using
+              <a href="#demo">AI automation</a>. <a href="#demo">Custom software</a> can help organizations
+              streamline their operations, and a <a href="#demo">workflow automation</a> layer keeps the handoffs
+              honest.
+            </div>
+          </div>
+
+          <div class="example-pair__caption">
+            <p>
+              Same paragraph. Every highlighted phrase resolves to a URL from the supplied page list; the wording is
+              unchanged.
+            </p>
+            <span class="mono">INV-07 · INV-12</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rule" id="mechanism">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Four steps, and no black box.</h2>
+          <div class="section-head__meta">
+            <span class="mono">Pipeline · v0.1</span>
+            <p>
+              Every step is inspectable in the output. The last one is only allowed to add two tags.
+            </p>
+          </div>
+        </div>
+
+        <div class="steps reveal">
+          <div class="step">
+            <span class="step__n">01</span>
+            <h3>Normalize</h3>
+            <p>
+              Validate HTTP and HTTPS URLs, dedupe equivalent destinations by canonical form, and keep the exact URL
+              you supplied for the actual link.
+            </p>
+            <span class="step__code">LinkablePage[] → canonical index</span>
+          </div>
+          <div class="step">
+            <span class="step__n">02</span>
+            <h3>Segment</h3>
+            <p>
+              Parse with source locations. Text inside links, headings, code, forms, and skip markers never becomes a
+              candidate.
+            </p>
+            <span class="step__code">text · start · end · paragraph</span>
+          </div>
+          <div class="step">
+            <span class="step__n">03</span>
+            <h3>Score</h3>
+            <p>
+              Preferred anchors, title, headings, keywords, and BM25 relevance, then penalties for generic or
+              ambiguous phrases.
+            </p>
+            <span class="step__code">0.35a + 0.25t + 0.15h + 0.15k + 0.10b</span>
+          </div>
+          <div class="step">
+            <span class="step__n">04</span>
+            <h3>Insert</h3>
+            <p>
+              Splice an opening and closing tag at verified source offsets. If an offset cannot be trusted, the
+              suggestion is skipped.
+            </p>
+            <span class="step__code">&lt;a href="…"&gt;anchor&lt;/a&gt;</span>
+          </div>
+        </div>
+
+        <div class="guarantee reveal">
+          <div>
+            <h3>Only the tags change.</h3>
+            <p>
+              The engine never reconstructs your HTML. It inserts markup between existing bytes, so removing the
+              inserted tags returns the original source exactly. That is INV-01, and it is a test, not a promise.
+            </p>
+          </div>
+          <div>
+            <div class="diff">
+              <div class="diff__label">before</div>
+              <div>&lt;p&gt;Learn about <span class="txt">AI automation</span>.&lt;/p&gt;</div>
+              <div class="diff__label" style="margin-top:12px">after</div>
+              <div>
+                &lt;p&gt;Learn about <span class="tag">&lt;a href="/ai-automation"&gt;</span><span class="txt"
+                  >AI automation</span
+                ><span class="tag">&lt;/a&gt;</span>.&lt;/p&gt;
+              </div>
+            </div>
+            <div class="diff__note">
+              <span>29 bytes added</span>
+              <span>INV-01 · byte-identical recovery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="demo">
+      <div class="wrap" style="padding-block: var(--section)">
+        <div class="section-head reveal">
+          <h2>The engine, working on this page.</h2>
+          <div class="section-head__meta">
+            <span class="mono">Reference implementation</span>
+            <p>
+              The real selection and insertion rules, running locally on synthetic articles. Pick a corpus, set a
+              limit, run it.
+            </p>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <Demo />
+        </div>
+
+        <div class="demo__notice reveal">
+          <span class="tag tag--blue">Synthetic content</span>
+          <p>
+            This is a browser reference implementation of the v0.1 rules, not the published npm package. It counts
+            UTF-16 offsets into the original string and skips entity spans rather than guessing their mapping. The
+            package will use parse5 source locations.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="api">
+      <div class="wrap api">
+        <div class="api__aside reveal">
+          <h2>Two calls. One contract.</h2>
+          <p class="lead">
+            Dry run or insert. Both take the same article and the same page list; neither reaches the network.
+          </p>
+
+          <div class="pkg">
+            <div class="pkg__row">
+              <span class="mono">Package</span>
+              <span>@juhenza/auto-linker</span>
+            </div>
+            <div class="pkg__row">
+              <span class="mono">Status</span>
+              <span class="pending">specification · not published</span>
+            </div>
+            <div class="pkg__row">
+              <span class="mono">Runtime</span>
+              <span>Node 22+</span>
+            </div>
+            <div class="pkg__row">
+              <span class="mono">Output</span>
+              <span>HTML + audit array</span>
+            </div>
+          </div>
+
+          <p class="api__note">
+            The npm name is subject to availability. No install command is shown because there is nothing to install
+            yet.
+          </p>
+        </div>
+
+        <div class="reveal code-tabs" data-tabs>
+          <div class="seg tabs-bar" role="tablist" aria-label="API example">
+            <button type="button" role="tab" data-tab-target="code-autolink" aria-selected="true">autoLink()</button>
+            <button type="button" role="tab" data-tab-target="code-suggest" aria-selected="false">
+              suggestLinks()
+            </button>
+            <button type="button" role="tab" data-tab-target="code-types" aria-selected="false">types</button>
+          </div>
+
+          <div data-tab-panel="code-autolink">
+            <CodeCard
+              id="code-autolink"
+              name="autoLink.ts"
+              note="Returns updated HTML, the links it inserted, and diagnostics."
+              code={`import { autoLink } from '@juhenza/auto-linker';
+
+const pages = [
+  {
+    url: 'https://example.com/ai-automation',
+    title: 'AI Automation Services',
+    keywords: ['AI automation', 'workflow automation'],
+    anchors: ['AI automation'],
+  },
+  {
+    url: 'https://example.com/custom-software',
+    title: 'Custom Software Development',
+    anchors: ['custom software'],
+  },
+];
+
+const { content, links, skipped, diagnostics } = autoLink({
+  content: article,
+  pages,
+  maxLinks: 5,
+});
+
+// content: original HTML plus verified <a> tags
+// links:   only the anchors inserted by this call`}
+            />
+          </div>
+
+          <div data-tab-panel="code-suggest" hidden>
+            <CodeCard
+              id="code-suggest"
+              name="suggestLinks.ts"
+              note="Same selection rules. The returned content is untouched."
+              code={`import { suggestLinks } from '@juhenza/auto-linker';
+
+const result = suggestLinks({
+  content: article,
+  pages,
+  maxLinks: 5,
+});
+
+for (const link of result.links) {
+  console.log(link.anchor, '→', link.url);
+  console.log(link.reason, link.score.toFixed(2));
+}
+
+// result.content === article`}
+            />
+          </div>
+
+          <div data-tab-panel="code-types" hidden>
+            <CodeCard
+              id="code-types"
+              name="types.ts"
+              note="Offsets are UTF-16 code units into the original content string."
+              code={`export interface LinkSuggestion {
+  anchor: string;
+  url: string;
+  start: number;   // offset in the original content
+  end: number;
+  score: number;   // 0–1, uncalibrated
+  reason: string;
+}
+
+export interface AutoLinkResult {
+  content: string;
+  links: LinkSuggestion[];
+  skipped: number;
+  diagnostics: string[];
+}`}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rule" id="scoring">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>A phrase has to earn the link.</h2>
+          <div class="section-head__meta">
+            <span class="mono">Weights · experimental</span>
+            <p>
+              These are starting values, not calibrated probabilities. The evaluation set decides whether they
+              survive.
+            </p>
+          </div>
+        </div>
+
+        <div class="score-grid">
+          <div class="reveal">
+            <div class="weights">
+              <div class="weight">
+                <span class="weight__label">Explicit preferred anchor</span>
+                <span class="weight__value">35%</span>
+                <span class="weight__track"><i class="weight__fill" style="--w: 1"></i></span>
+              </div>
+              <div class="weight">
+                <span class="weight__label">Destination title similarity</span>
+                <span class="weight__value">25%</span>
+                <span class="weight__track"><i class="weight__fill" style="--w: 0.714"></i></span>
+              </div>
+              <div class="weight">
+                <span class="weight__label">Heading similarity</span>
+                <span class="weight__value">15%</span>
+                <span class="weight__track"><i class="weight__fill" style="--w: 0.429"></i></span>
+              </div>
+              <div class="weight">
+                <span class="weight__label">Keyword similarity</span>
+                <span class="weight__value">15%</span>
+                <span class="weight__track"><i class="weight__fill" style="--w: 0.429"></i></span>
+              </div>
+              <div class="weight">
+                <span class="weight__label">BM25 content relevance</span>
+                <span class="weight__value">10%</span>
+                <span class="weight__track"><i class="weight__fill" style="--w: 0.286"></i></span>
+              </div>
+            </div>
+            <div class="weights__foot">
+              <span class="mono">Normalized 0–1</span>
+              <span class="mono">Penalties applied after weighting</span>
+            </div>
+
+            <div class="penalties">
+              <h3>Then the score goes down for:</h3>
+              <ul>
+                <li>Generic or stopword-only phrases, and single words without an editor anchor.</li>
+                <li>A destination that is nearly tied with another page for the same phrase.</li>
+                <li>Repeating a destination, or repeating the same anchor in one article.</li>
+                <li>Exceeding the paragraph cap, the link cap, or the relevance floor.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="formula reveal">
+            <h3>Selection is global, not greedy per phrase.</h3>
+            <div class="formula__expr">
+              <span class="var">score</span> = 0.35a + 0.25t + 0.15h + 0.15k + 0.10b<br />
+              <span class="op">−</span> generic <span class="op">−</span> ambiguity
+              <span class="op">−</span> repetition
+            </div>
+            <p>
+              Overlaps, duplicate destinations, paragraph caps, and the relevance floor are resolved across the whole
+              article. No anchor is nested, no URL repeats, and nothing links to the page it lives on.
+            </p>
+            <p>If only two candidates clear the rules, the result is two links. The engine never fills a quota.</p>
+            <p class="mono" style="margin-top: 22px; font-size: 10.5px; text-transform: none; letter-spacing: .02em;">
+              a anchor · t title · h heading · k keyword · b BM25
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guarantees">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Twelve ways to fail. Twelve tests before code.</h2>
+          <div class="section-head__meta">
+            <span class="mono">Invariant suite · mandatory</span>
+            <p>
+              The engine is not finished when it works. It is finished when every one of these holds under adversarial
+              input.
+            </p>
+          </div>
+        </div>
+
+        <div class="invariants reveal">
+          <div class="inv inv--key">
+            <span class="inv__id">INV-01</span>
+            <span class="inv__name">Original content exactly recoverable</span>
+            <span class="inv__by">insertion · byte diff</span>
+          </div>
+          <div class="inv">
+            <span class="inv__id">INV-02</span>
+            <span class="inv__name">No nested hyperlinks</span>
+            <span class="inv__by">parser · selection</span>
+          </div>
+          <div class="inv">
+            <span class="inv__id">INV-03</span>
+            <span class="inv__name">No links inside excluded elements</span>
+            <span class="inv__by">parser · segment filter</span>
+          </div>
+          <div class="inv">
+            <span class="inv__id">INV-04</span>
+            <span class="inv__name">No self-links</span>
+            <span class="inv__by">normalization · selection</span>
+          </div>
+          <div class="inv">
+            <span class="inv__id">INV-05</span>
+            <span class="inv__name">No duplicate destination links</span>
+            <span class="inv__by">conflict resolution</span>
+          </div>
+          <div class="inv">
+            <span class="inv__id">INV-06</span>
+            <span class="inv__name">No overlapping anchors</span>
+            <span class="inv__by">conflict resolution</span>
+          </div>
+          <div class="inv">
+            <span class="inv__id">INV-07</span>
+            <span class="inv__name">No invented destination URLs</span>
+            <span class="inv__by">normalization</span>
+          </div>
+          <div class="inv">
+            <span class="inv__id">INV-08</span>
+            <span class="inv__name">Deterministic results</span>
+            <span class="inv__by">scoring · snapshot tests</span>
+          </div>
+          <div class="inv">
+            <span class="inv__id">INV-09</span>
+            <span class="inv__name">Idempotent repeated execution</span>
+            <span class="inv__by">selection · insertion</span>
+          </div>
+          <div class="inv">
+            <span class="inv__id">INV-10</span>
+            <span class="inv__name">Unicode and HTML entities handled safely</span>
+            <span class="inv__by">source mapping</span>
+          </div>
+          <div class="inv">
+            <span class="inv__id">INV-11</span>
+            <span class="inv__name">Invalid inputs handled predictably</span>
+            <span class="inv__by">Zod · unit tests</span>
+          </div>
+          <div class="inv">
+            <span class="inv__id">INV-12</span>
+            <span class="inv__name">No content rewriting</span>
+            <span class="inv__by">insertion · byte diff</span>
+          </div>
+        </div>
+
+        <div class="invariants__foot">
+          <span class="mono">Zero violations required</span>
+          <span class="mono">Property tests · fast-check</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight rule" id="blueprint">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>What v0.1 does. What it refuses to do.</h2>
+          <div class="section-head__meta">
+            <span class="mono">Scope · release plan</span>
+            <p>One engine, in memory, no infrastructure. Everything else waits for evidence.</p>
+          </div>
+        </div>
+
+        <div class="scope">
+          <div class="scope__col reveal">
+            <h3>In v0.1 <span>ship it</span></h3>
+            <ul class="scope__list">
+              <li class="scope__item"><Icon name="check" /><span>In-memory page ingestion</span></li>
+              <li class="scope__item"><Icon name="check" /><span>HTML parsing with source locations</span></li>
+              <li class="scope__item"><Icon name="check" /><span>Contextual anchor discovery</span></li>
+              <li class="scope__item"><Icon name="check" /><span>Keyword and BM25 relevance</span></li>
+              <li class="scope__item"><Icon name="check" /><span>Editor-defined anchor keywords</span></li>
+              <li class="scope__item"><Icon name="check" /><span>Deterministic link selection</span></li>
+              <li class="scope__item"><Icon name="check" /><span>Safe source-offset insertion</span></li>
+              <li class="scope__item"><Icon name="check" /><span>Suggestion-only mode</span></li>
+              <li class="scope__item"><Icon name="check" /><span>JSON result and audit report</span></li>
+              <li class="scope__item"><Icon name="check" /><span>Automated tests, including invariants</span></li>
+            </ul>
+          </div>
+
+          <div class="scope__col reveal">
+            <h3>Deliberately later <span>evidence first</span></h3>
+            <ul class="scope__list">
+              <li class="scope__item scope__item--muted">
+                <Icon name="minus" /><span>Markdown support</span> <span class="scope__version">v0.2</span>
+              </li>
+              <li class="scope__item scope__item--muted">
+                <Icon name="minus" /><span>CLI</span> <span class="scope__version">v0.2</span>
+              </li>
+              <li class="scope__item scope__item--muted">
+                <Icon name="minus" /><span>Sitemap and Crawlee</span> <span class="scope__version">v0.3</span>
+              </li>
+              <li class="scope__item scope__item--muted">
+                <Icon name="minus" /><span>SQLite storage</span> <span class="scope__version">v0.3</span>
+              </li>
+              <li class="scope__item scope__item--muted">
+                <Icon name="minus" /><span>PostgreSQL and pgvector</span> <span class="scope__version">v0.4</span>
+              </li>
+              <li class="scope__item scope__item--muted">
+                <Icon name="minus" /><span>Embeddings and semantic retrieval</span> <span class="scope__version">v0.4</span>
+              </li>
+              <li class="scope__item scope__item--muted">
+                <Icon name="minus" /><span>CMS integrations</span> <span class="scope__version">later</span>
+              </li>
+              <li class="scope__item scope__item--muted">
+                <Icon name="minus" /><span>Web dashboard</span> <span class="scope__version">later</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="roadmap reveal">
+          <div class="roadmap__head">
+            <h3>Five stages. The first one is tests.</h3>
+            <span class="mono">Stage 01 starts before any matcher exists</span>
+          </div>
+          <div class="stages">
+            <div class="stage-col stage-col--first">
+              <span class="stage-col__n">Stage 01</span>
+              <h4>Foundation and tests</h4>
+              <p>Package, public interfaces, invariant suite, evaluation fixtures.</p>
+            </div>
+            <div class="stage-col">
+              <span class="stage-col__n">Stage 02</span>
+              <h4>Parsing and candidates</h4>
+              <p>URL normalization, source-located HTML, eligible text, anchor phrases.</p>
+            </div>
+            <div class="stage-col">
+              <span class="stage-col__n">Stage 03</span>
+              <h4>Ranking and selection</h4>
+              <p>Title, heading, keyword, BM25, penalties, conflict resolution.</p>
+            </div>
+            <div class="stage-col">
+              <span class="stage-col__n">Stage 04</span>
+              <h4>Insertion and validation</h4>
+              <p>Offset insertion, URL validation, the two public methods, property tests.</p>
+            </div>
+            <div class="stage-col">
+              <span class="stage-col__n">Stage 05</span>
+              <h4>Evaluation and release</h4>
+              <p>Dataset review, ranking tuning, docs, license audit, first npm release.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dod reveal" id="done">
+          <div class="dod__head">
+            <h3>Definition of done</h3>
+            <span class="tag">0 of 8 met</span>
+          </div>
+          <div class="dod__list">
+            <div class="dod__item"><Icon name="square" /><span>A developer can install the package and call <code>autoLink()</code> with an article and pages.</span></div>
+            <div class="dod__item"><Icon name="square" /><span>Only contextually relevant, verified links are inserted.</span></div>
+            <div class="dod__item"><Icon name="square" /><span>All mandatory invariants pass: preservation, determinism, idempotency.</span></div>
+            <div class="dod__item"><Icon name="square" /><span>The evaluation set shows acceptable precision and useful link yield.</span></div>
+            <div class="dod__item"><Icon name="square" /><span>No database, API key, crawler, or external service is required.</span></div>
+            <div class="dod__item"><Icon name="square" /><span>README ships a working quickstart, configuration guide, and limitations.</span></div>
+            <div class="dod__item"><Icon name="square" /><span>Automated tests pass on supported Node.js versions.</span></div>
+            <div class="dod__item"><Icon name="square" /><span>Works in React, Next.js, TanStack Start, Astro, or any Node workflow.</span></div>
+          </div>
+          <div class="dod__foot">
+            Current status: specification finalized · implementation not started · no npm release · no repository yet
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="close">
+      <div class="wrap">
+        <div class="close__panel reveal">
+          <svg class="close__orbits" viewBox="0 0 780 780" fill="none" aria-hidden="true">
+            <g stroke="currentColor" stroke-width="1" stroke-dasharray="1.5 9">
+              <ellipse cx="390" cy="390" rx="360" ry="154" transform="rotate(-26 390 390)" opacity="0.8" />
+              <ellipse cx="390" cy="390" rx="286" ry="110" transform="rotate(24 390 390)" opacity="0.5" />
+              <circle cx="390" cy="390" r="230" opacity="0.28" />
+            </g>
+          </svg>
+
+          <div class="close__inner">
+            <div>
+              <h2>Read the spec before you trust the links.</h2>
+              <p>
+                v0.1.0 is scoped, the invariants are written, and the demo on this page runs the selection rules.
+                Installation, evaluation results, and a repository come after the tests.
+              </p>
+            </div>
+            <div class="close__actions">
+              <a class="pill pill--inverse" href="#blueprint">Read the blueprint</a>
+              <a class="pill pill--outline-inverse" href="#demo">Try the engine</a>
+            </div>
+          </div>
+
+          <div class="close__meta">
+            <span class="mono">TypeScript</span>
+            <span class="mono">Node 22+</span>
+            <span class="mono">MIT proposed</span>
+            <span class="mono">No external services</span>
+            <span class="mono">v0.1.0 · scope finalized</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
