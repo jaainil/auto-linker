@@ -1,21 +1,15 @@
-name: Publish to npm
+name: Semantic release
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Exact version already committed in package/package.json (no automatic bump)'
-        required: true
-        default: '0.1.0'
-        type: string
       dry_run:
-        description: 'Validate and pack without publishing'
+        description: 'Preview the next semantic release without publishing'
         required: true
         default: true
         type: boolean
-  push:
-    tags:
-      - 'v*'
 
 permissions:
   contents: read
@@ -26,7 +20,7 @@ concurrency:
 
 jobs:
   verify:
-    if: github.repository == 'jaainil/auto-linker' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
+    if: github.repository == 'jaainil/auto-linker' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -42,21 +36,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '${{ matrix.node }}'
-      - name: Verify release version
-        env:
-          RELEASE_REF: ${{ github.ref }}
-          EXPECTED_VERSION: ${{ inputs.version }}
-        run: |
-          node --input-type=module <<'JS'
-          import { readFileSync } from 'node:fs';
-          const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
-          const expected = process.env.RELEASE_REF.startsWith('refs/tags/')
-            ? process.env.RELEASE_REF.slice('refs/tags/v'.length)
-            : process.env.EXPECTED_VERSION;
-          if (pkg.name !== '@imjp/auto-linker' || pkg.version !== expected) {
-            throw new Error(`Release version ${expected} does not match ${pkg.name}@${pkg.version}`);
-          }
-          JS
       - run: npm ci
       - run: npm run prepack
       - run: node examples/basic.mjs
@@ -65,11 +44,11 @@ jobs:
         run: node --input-type=commonjs -e "const {autoLink}=require('.'); if(autoLink({content:'<p>AI automation</p>',pages:[{url:'https://example.com/ai',title:'AI automation'}]}).links.length!==1) process.exit(1)"
       - run: npm pack --dry-run
 
-  publish:
+  release:
     needs: verify
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       id-token: write
     defaults:
       run:
@@ -77,29 +56,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-          registry-url: 'https://registry.npmjs.org'
-      - name: Install npm with trusted publishing support
-        run: npm install --global npm@11
+          # No registry-url: semantic-release handles npm OIDC authentication.
       - run: npm ci
-      - name: Verify package and build
-        run: npm run prepack
-      - name: Preview publication
+      - run: npm run build
+      - name: Preview semantic release
         if: github.event_name == 'workflow_dispatch' && inputs.dry_run
-        run: npm publish --access public --dry-run
-      - name: Publish public package with provenance
-        if: github.event_name != 'workflow_dispatch' || !inputs.dry_run
-        run: npm publish --access public --provenance
-      - name: Summary
+        run: npm run release:dry-run
         env:
-          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
-        run: |
-          node --input-type=module <<'JS'
-          import { appendFileSync, readFileSync } from 'node:fs';
-          const { name, version } = JSON.parse(readFileSync('package.json', 'utf8'));
-          const status = process.env.DRY_RUN === 'true' ? 'Dry run; nothing published' : 'Published';
-          appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${status}: ${name}@${version}\n`);
-          JS
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish semantic release
+        if: github.event_name != 'workflow_dispatch' || !inputs.dry_run
+        run: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

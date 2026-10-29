@@ -21,8 +21,8 @@ npm run build
 
 The library is an experimental v0.1 implementation. Real-article evaluation and release checks remain; see the [package documentation](package/README.md).
 
-## Publishing to npm via GitHub Actions
+## Automatic releases
 
-See the [release guide](package/docs/publishing.md). The [Publish to npm workflow](.github/workflows/publish.yml) checks Node 22/24/26, validates the committed version, and publishes publicly with provenance. Run it manually for version `0.1.0` with `dry_run` enabled to preview; disable `dry_run` to publish. Version tags (`v0.1.0`) also publish, and must match `package/package.json`.
+[`@imjp/auto-linker`](https://www.npmjs.com/package/@imjp/auto-linker) is released by [semantic-release](https://semantic-release.org/) through [GitHub Actions](.github/workflows/publish.yml). After tests pass on Node 22/24/26, commits on `main` determine the next version: `fix:` → patch, `feat:` → minor, breaking changes → major. Use the `site` scope for website-only changes; documentation and CI commits do not publish by default.
 
-The first version was submitted using the `imjp` npm login. Trusted publishing is configured for `@imjp/auto-linker`, repository `jaainil/auto-linker`, workflow `publish.yml`; future releases use GitHub OIDC without an `NPM_TOKEN` secret. No version bump, commit, tag or release is created by the workflow.
+npm publishing uses the configured GitHub OIDC identity, with no npm token secret. The workflow creates version tags and GitHub release notes automatically. See the [release guide](package/docs/publishing.md) for previews and commit conventions.

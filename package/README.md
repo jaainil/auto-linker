@@ -1,6 +1,6 @@
 # JUHENZA Auto-Linker
 
-An experimental, synchronous HTML internal-linking engine for Node.js 22+. No network, model, crawler, or database is used at runtime. This is a local v0.1 implementation, not a published release or a calibrated relevance model.
+An experimental, synchronous HTML internal-linking engine for Node.js 22+. No network, model, crawler, or database is used at runtime. The first published version is 0.1.0; relevance scores are experimental and uncalibrated.
 
 ```ts
 import { autoLink, suggestLinks, removeInsertedLinks } from '@imjp/auto-linker';
@@ -48,10 +48,10 @@ Inserted anchors carry `data-autolink="juhenza-v1"`. An article with this marker
 
 Ranking uses preferred anchors, title, headings, keywords and BM25 with experimental 35/25/15/15/10 weights, normalized over metadata fields actually supplied. Non-preferred candidates must occur as a contiguous phrase in destination title, headings or keywords. Selection is greedy and deterministic, with ambiguity penalties, no overlapping anchors or duplicate destinations, and per-block limits. Short/generic phrases are penalized. There is no language-specific grammar model, stemming or semantic understanding. A phrase index prunes unrelated destinations before scoring; metadata indexing and dense matches can still be costly on very large corpora. Run `npm run benchmark` for a reproducible synthetic 100-page sparse-match example.
 
-This version has synthetic fixtures and invariant tests. Precision on 20–30 independently reviewed real articles, supported-Node CI results, full dependency license review, name availability and npm publication are still release gates. Do not interpret smoke tests as proof of 90% precision. MIT licensing is supplied for the new library; the website is outside the package tarball.
+This version has synthetic fixtures and invariant tests, with CI checks on Node 22/24/26. Evaluation on 20–30 independently reviewed real articles and a full dependency license audit remain ongoing work. Do not interpret smoke tests as proof of 90% precision. MIT licensing is supplied for the new library; the website is outside the package tarball.
 
 ## Releases and Publishing
 
-Use the repository's [Publish to npm workflow](https://github.com/jaainil/auto-linker/actions/workflows/publish.yml). See the [release guide](https://github.com/jaainil/auto-linker/blob/main/package/docs/publishing.md) for first-release authentication and subsequent trusted publishing.
+[semantic-release](https://semantic-release.org/) publishes this package through the repository's [Semantic release workflow](https://github.com/jaainil/auto-linker/actions/workflows/publish.yml) after tests pass on Node 22/24/26. On `main`, `fix:` commits trigger patch releases, `feat:` commits trigger minor releases, and breaking changes trigger major releases. Website-only commits use the `site` scope and do not release the library.
 
-Manual runs take the exact committed version and default to dry run. Pushing a matching `v*` version tag publishes automatically. Tests run on Node 22/24/26 before the publish job; publication uses public access and provenance. The workflow never bumps versions or changes the repository. Avoid the legacy local `scripts/release.mjs` path: the supported publishing path is GitHub Actions.
+Versions, tags (`auto-linker-v*`) and GitHub release notes are generated automatically. npm uses GitHub OIDC trusted publishing; no npm token secret is required. See the [release guide](https://github.com/jaainil/auto-linker/blob/main/package/docs/publishing.md) for previews and details.
