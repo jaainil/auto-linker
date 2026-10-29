@@ -23,11 +23,6 @@ The library is an experimental local v0.1 implementation. Real-article evaluatio
 
 ## Publishing to npm via GitHub Actions
 
-The repository includes an automated release workflow in [`.github/workflows/publish.yml`](.github/workflows/publish.yml):
+See the [release guide](package/docs/publishing.md). The [Publish to npm workflow](.github/workflows/publish.yml) checks Node 22/24/26, validates the committed version, and publishes publicly with provenance. Run it manually for version `0.1.0` with `dry_run` enabled to preview; disable `dry_run` to publish. Version tags (`v0.1.0`) also publish, and must match `package/package.json`.
 
-1. **Add your npm token**: In GitHub repository settings, go to `Settings` -> `Secrets and variables` -> `Actions` -> `New repository secret`, name it `NPM_TOKEN`, and paste an npm automation/granular access token with write access to `@juhenza`.
-2. **Trigger release with auto-version update**:
-   - Go to the **Actions** tab on GitHub.
-   - Select **Release & Publish to npm**.
-   - Click **Run workflow**, choose the version bump (`patch`, `minor`, `major`), and run.
-   - The workflow automatically bumps the version in `package.json`, commits and tags it (`v*`), creates a GitHub Release, runs tests, and publishes to npmjs.org with `--access public --provenance`.
+The first release needs a temporary `NPM_TOKEN` repository secret. After the package exists, configure npm trusted publishing for `jaainil/auto-linker`, workflow `publish.yml`, and remove the secret. No version bump, commit, tag or release is created by the workflow.

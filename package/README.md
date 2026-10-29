@@ -52,9 +52,6 @@ This version has synthetic fixtures and invariant tests. Precision on 20–30 in
 
 ## Releases and Publishing
 
-Releases are published to npmjs.org automatically via GitHub Actions:
-- **Workflow:** [`.github/workflows/publish.yml`](../.github/workflows/publish.yml)
-- **Auto-version bump:** Triggers via `workflow_dispatch` in GitHub Actions with `patch`, `minor`, or `major` input.
-- **Verification:** Runs typecheck, tests, examples, and builds before publishing.
-- **npm configuration:** Published under public access (`publishConfig.access = "public"`) with provenance.
-- **Requirement:** Add your npm granular access token or automation token as `NPM_TOKEN` under GitHub repository secrets.
+Use the repository's [Publish to npm workflow](https://github.com/jaainil/auto-linker/actions/workflows/publish.yml). See the [release guide](https://github.com/jaainil/auto-linker/blob/main/package/docs/publishing.md) for first-release authentication and subsequent trusted publishing.
+
+Manual runs take the exact committed version and default to dry run. Pushing a matching `v*` version tag publishes automatically. Tests run on Node 22/24/26 before the publish job; publication uses public access and provenance. The workflow never bumps versions or changes the repository. Avoid the legacy local `scripts/release.mjs` path: the supported publishing path is GitHub Actions.

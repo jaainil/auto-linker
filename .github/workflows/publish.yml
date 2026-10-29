@@ -1,129 +1,109 @@
-name: Release & Publish to npm
+name: Publish to npm
 
 on:
   workflow_dispatch:
     inputs:
-      bump:
-        description: 'Version bump type'
+      version:
+        description: 'Exact version already committed in package/package.json (no automatic bump)'
         required: true
-        default: 'patch'
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
+        default: '0.1.0'
+        type: string
       dry_run:
-        description: 'Dry run (simulate without publishing, tagging, or committing)'
-        required: false
-        default: false
+        description: 'Validate and pack without publishing'
+        required: true
+        default: true
         type: boolean
   push:
     tags:
       - 'v*'
-  release:
-    types: [published]
 
 permissions:
-  contents: write
-  id-token: write
+  contents: read
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
 
 jobs:
-  release:
+  verify:
+    if: github.repository == 'jaainil/auto-linker' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24, 26]
+    defaults:
+      run:
+        working-directory: package
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Setup Node.js 22
-        uses: actions/setup-node@v4
+          persist-credentials: false
+      - uses: actions/setup-node@v4
         with:
-          node-version: 22
-          registry-url: 'https://registry.npmjs.org'
-          cache: npm
-          cache-dependency-path: package/package-lock.json
-
-      - name: Verify npm token secret
-        if: ${{ inputs.dry_run != true }}
-        run: |
-          if [ -z "${{ secrets.NPM_TOKEN }}" ]; then
-            echo "::error::NPM_TOKEN secret is not set in GitHub repository secrets."
-            echo "Please add NPM_TOKEN in GitHub: Settings -> Secrets and variables -> Actions -> Repository secrets"
-            exit 1
-          fi
-
-      - name: Install package dependencies
-        working-directory: package
-        run: npm ci
-
-      - name: Configure Git
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run != true }}
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Bump version & Tag (workflow_dispatch)
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run != true }}
-        id: version_bump
-        run: |
-          cd package
-          NEW_VERSION_RAW=$(npm version ${{ inputs.bump }} --no-git-tag-version)
-          VERSION_CLEAN=${NEW_VERSION_RAW#v}
-          TAG_NAME="v${VERSION_CLEAN}"
-          echo "VERSION=${VERSION_CLEAN}" >> $GITHUB_OUTPUT
-          echo "TAG=${TAG_NAME}" >> $GITHUB_OUTPUT
-          
-          cd ..
-          git add package/package.json package/package-lock.json
-          git commit -m "chore(release): @juhenza/auto-linker ${TAG_NAME}"
-          git tag -a "${TAG_NAME}" -m "Release ${TAG_NAME}"
-          
-          # Pull any remote changes and push commit + tag
-          git pull --rebase origin main || true
-          git push origin main
-          git push origin "${TAG_NAME}"
-
-      - name: Run verification checks & build
-        working-directory: package
-        run: |
-          npm run prepack
-          node examples/basic.mjs
-          node evaluation/evaluate.mjs
-
-      - name: Publish to npm (Dry Run)
-        if: ${{ inputs.dry_run == true }}
-        working-directory: package
-        run: npm publish --access public --dry-run
+          node-version: '${{ matrix.node }}'
+      - name: Verify release version
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          RELEASE_REF: ${{ github.ref }}
+          EXPECTED_VERSION: ${{ inputs.version }}
+        run: |
+          node --input-type=module <<'JS'
+          import { readFileSync } from 'node:fs';
+          const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
+          const expected = process.env.RELEASE_REF.startsWith('refs/tags/')
+            ? process.env.RELEASE_REF.slice('refs/tags/v'.length)
+            : process.env.EXPECTED_VERSION;
+          if (pkg.name !== '@juhenza/auto-linker' || pkg.version !== expected) {
+            throw new Error(`Release version ${expected} does not match ${pkg.name}@${pkg.version}`);
+          }
+          JS
+      - run: npm ci
+      - run: npm run prepack
+      - run: node examples/basic.mjs
+      - run: node evaluation/evaluate.mjs
+      - name: Verify CommonJS export
+        run: node --input-type=commonjs -e "const {autoLink}=require('.'); if(autoLink({content:'<p>AI automation</p>',pages:[{url:'https://example.com/ai',title:'AI automation'}]}).links.length!==1) process.exit(1)"
+      - run: npm pack --dry-run
 
-      - name: Publish to npm
-        if: ${{ inputs.dry_run != true }}
+  publish:
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    defaults:
+      run:
         working-directory: package
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install npm with trusted publishing support
+        run: npm install --global npm@11
+      - run: npm ci
+      - name: Verify package and build
+        run: npm run prepack
+      - name: Preview publication
+        if: github.event_name == 'workflow_dispatch' && inputs.dry_run
+        run: npm publish --access public --dry-run
+      - name: Publish public package with provenance
+        if: github.event_name != 'workflow_dispatch' || !inputs.dry_run
         run: npm publish --access public --provenance
         env:
+          # Temporary bootstrap fallback for the first release. Subsequent
+          # releases use OIDC after npm trusted publishing is configured.
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Create GitHub Release
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run != true }}
-        run: |
-          gh release create "${{ steps.version_bump.outputs.TAG }}" \
-            --title "@juhenza/auto-linker ${{ steps.version_bump.outputs.TAG }}" \
-            --generate-notes
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Summary
+        env:
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
         run: |
-          CURRENT_VER=$(node -p "require('./package/package.json').version")
-          echo "### 🚀 Release Pipeline Status" >> $GITHUB_STEP_SUMMARY
-          echo "- **Package:** \`@juhenza/auto-linker\`" >> $GITHUB_STEP_SUMMARY
-          echo "- **Version:** \`${CURRENT_VER}\`" >> $GITHUB_STEP_SUMMARY
-          echo "- **Registry:** [npmjs.com/package/@juhenza/auto-linker](https://www.npmjs.com/package/@juhenza/auto-linker)" >> $GITHUB_STEP_SUMMARY
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
-            echo "- **Mode:** \`DRY RUN\` (No files were published or committed)" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "- **Status:** Published successfully with npm provenance" >> $GITHUB_STEP_SUMMARY
-          fi
+          node --input-type=module <<'JS'
+          import { appendFileSync, readFileSync } from 'node:fs';
+          const { name, version } = JSON.parse(readFileSync('package.json', 'utf8'));
+          const status = process.env.DRY_RUN === 'true' ? 'Dry run; nothing published' : 'Published';
+          appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${status}: ${name}@${version}\n`);
+          JS
