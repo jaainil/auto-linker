@@ -41,7 +41,7 @@ The engine inserts only opening and closing anchor tags at verified source offse
 
 ## Brand Commitments
 
-- Product name: JUHENZA Auto-Linker; npm name `@juhenza/auto-linker` (subject to availability).
+- Product name: JUHENZA Auto-Linker; npm name `@imjp/auto-linker` (subject to availability).
 - Licensing: MIT proposed.
 - The user pinned the Context.dev design system as binding visual direction: white canvas, #2563EB primary, Rethink Sans, Doto for code, pill controls, hairline borders, generous editorial spacing, dotted orbital motif. Recorded as a constraint; the surface brief expands it into composition.
 

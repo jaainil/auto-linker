@@ -1,5 +1,5 @@
 {
-  "name": "@juhenza/auto-linker",
+  "name": "@imjp/auto-linker",
   "version": "0.1.0",
   "description": "Deterministic, source-preserving internal links for HTML articles",
   "type": "module",

@@ -41,7 +41,7 @@ function runQuiet(command, options = {}) {
   }
 }
 
-console.log('\n📦 \x1b[1m\x1b[36m@juhenza/auto-linker Release Pipeline\x1b[0m');
+console.log('\n📦 \x1b[1m\x1b[36m@imjp/auto-linker Release Pipeline\x1b[0m');
 if (isDryRun) {
   console.log('   \x1b[33m[DRY RUN MODE ENABLED - No changes will be published to npm]\x1b[0m');
 }

@@ -53,7 +53,7 @@ jobs:
           const expected = process.env.RELEASE_REF.startsWith('refs/tags/')
             ? process.env.RELEASE_REF.slice('refs/tags/v'.length)
             : process.env.EXPECTED_VERSION;
-          if (pkg.name !== '@juhenza/auto-linker' || pkg.version !== expected) {
+          if (pkg.name !== '@imjp/auto-linker' || pkg.version !== expected) {
             throw new Error(`Release version ${expected} does not match ${pkg.name}@${pkg.version}`);
           }
           JS

@@ -1,4 +1,4 @@
-import { autoLink, suggestLinks, removeInsertedLinks } from '@juhenza/auto-linker';
+import { autoLink, suggestLinks, removeInsertedLinks } from '@imjp/auto-linker';
 
 const options = {
   content: '<p>AI automation helps companies. Custom software improves efficiency.</p>',

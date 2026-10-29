@@ -266,7 +266,7 @@ import Icon from '../components/Icon.astro';
           <div class="pkg">
             <div class="pkg__row">
               <span class="mono">Package</span>
-              <span>@juhenza/auto-linker</span>
+              <span>@imjp/auto-linker</span>
             </div>
             <div class="pkg__row">
               <span class="mono">Status</span>
@@ -302,7 +302,7 @@ import Icon from '../components/Icon.astro';
               id="code-autolink"
               name="autoLink.ts"
               note="Returns updated HTML, the links it inserted, and diagnostics."
-              code={`import { autoLink } from '@juhenza/auto-linker';
+              code={`import { autoLink } from '@imjp/auto-linker';
 
 const pages = [
   {
@@ -334,7 +334,7 @@ const { content, links, skipped, diagnostics } = autoLink({
               id="code-suggest"
               name="suggestLinks.ts"
               note="Same selection rules. The returned content is untouched."
-              code={`import { suggestLinks } from '@juhenza/auto-linker';
+              code={`import { suggestLinks } from '@imjp/auto-linker';
 
 const result = suggestLinks({
   content: article,

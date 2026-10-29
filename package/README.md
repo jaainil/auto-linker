@@ -3,7 +3,7 @@
 An experimental, synchronous HTML internal-linking engine for Node.js 22+. No network, model, crawler, or database is used at runtime. This is a local v0.1 implementation, not a published release or a calibrated relevance model.
 
 ```ts
-import { autoLink, suggestLinks, removeInsertedLinks } from '@juhenza/auto-linker';
+import { autoLink, suggestLinks, removeInsertedLinks } from '@imjp/auto-linker';
 
 const options = {
   content: '<p>AI automation reduces repetitive tasks.</p>',
